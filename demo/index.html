@@ -56,18 +56,16 @@
     <h3>Radio group with iron form</h3>
     <demo-snippet>
       <template>
-        <input type="checkbox" checked onchange="form1.allowRedirect = !this.checked;"> Prevent automatic form redirection<br><br>
         <iron-form id="test_form">
           <form action="/test" method="get">
-            <input type="checkbox" required name="checkbox" checked> Default checkbox<br><br>
             <vaadin-radio-group name="radio-group" required>
-              <vaadin-radio-button>1</vaadin-radio-button>
+              <vaadin-radio-button><b>1</b></vaadin-radio-button>
               <vaadin-radio-button value="">2</vaadin-radio-button>
               <vaadin-radio-button>3</vaadin-radio-button>
               <vaadin-radio-button value="fourth">4</vaadin-radio-button>
             </vaadin-radio-group>
             <br><br>
-            <button onclick="test_form.submit()">Submit</button>
+            <vaadin-button onclick="test_form.submit()">Submit</vaadin-button>
           </form>
           <br>
           <div class="output"></div>
