@@ -135,20 +135,25 @@ This program is available under Apache License Version 2.0, available at https:/
             // LEFT, UP - select previous radio button
             if (e.keyCode === 37 || e.keyCode === 38) {
               e.preventDefault();
-              this._selectPreviousButton(checkedRadioButton);
+              this._arrowKeyPressed = true;
+              this._selectPreviousButton(checkedRadioButton, true);
             }
 
             // RIGHT, DOWN - select next radio button
             if (e.keyCode === 39 || e.keyCode === 40) {
               e.preventDefault();
-              this._selectNextButton(checkedRadioButton);
+              this._arrowKeyPressed = true;
+              this._selectNextButton(checkedRadioButton, true);
             }
           });
         }
 
-        _selectButton(element) {
+        _selectButton(element, setFocusRing) {
           if (this.contains(this.getRootNode().activeElement)) {
             element.focus();
+            if (setFocusRing) {
+              element.setAttribute('focus-ring', '');
+            }
           }
           this._changeSelectedButton(element);
         }
@@ -157,7 +162,7 @@ This program is available under Apache License Version 2.0, available at https:/
           return !this._radioButtons.every((button) => button.disabled);
         }
 
-        _selectNextButton(element) {
+        _selectNextButton(element, moveFocusRing) {
           if (!this._hasEnabledButtons()) {
             return;
           }
@@ -165,13 +170,13 @@ This program is available under Apache License Version 2.0, available at https:/
           var nextButton = element.nextElementSibling || this.firstElementChild;
 
           if (nextButton.disabled) {
-            this._selectNextButton(nextButton);
+            this._selectNextButton(nextButton, true);
           } else {
-            this._selectButton(nextButton);
+            this._selectButton(nextButton, true);
           }
         }
 
-        _selectPreviousButton(element) {
+        _selectPreviousButton(element, moveFocusRing) {
           if (!this._hasEnabledButtons()) {
             return;
           }
@@ -179,9 +184,9 @@ This program is available under Apache License Version 2.0, available at https:/
           var previousButton = element.previousElementSibling || this.lastElementChild;
 
           if (previousButton.disabled) {
-            this._selectPreviousButton(previousButton);
+            this._selectPreviousButton(previousButton, true);
           } else {
-            this._selectButton(previousButton);
+            this._selectButton(previousButton, true);
           }
         }
 
