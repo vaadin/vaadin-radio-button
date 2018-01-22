@@ -135,12 +135,14 @@ This program is available under Apache License Version 2.0, available at https:/
             // LEFT, UP - select previous radio button
             if (e.keyCode === 37 || e.keyCode === 38) {
               e.preventDefault();
+              this._arrowKeyPressed = true;
               this._selectPreviousButton(checkedRadioButton);
             }
 
             // RIGHT, DOWN - select next radio button
             if (e.keyCode === 39 || e.keyCode === 40) {
               e.preventDefault();
+              this._arrowKeyPressed = true;
               this._selectNextButton(checkedRadioButton);
             }
           });
@@ -149,6 +151,10 @@ This program is available under Apache License Version 2.0, available at https:/
         _selectButton(element) {
           if (this.contains(this.getRootNode().activeElement)) {
             element.focus();
+            if (this._arrowKeyPressed) {
+              element.setAttribute('focus-ring', '');
+              delete this._arrowKeyPressed;
+            }
           }
           this._changeSelectedButton(element);
         }
