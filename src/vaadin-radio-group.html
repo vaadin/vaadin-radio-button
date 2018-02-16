@@ -147,13 +147,26 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _selectButton(element, setFocusRing) {
-          if (this.contains(this.getRootNode().activeElement)) {
+          if (this._containsFocus()) {
             element.focus();
             if (setFocusRing) {
               element.setAttribute('focus-ring', '');
             }
           }
           this._changeSelectedButton(element);
+        }
+
+        _containsFocus(element) {
+          if (this.contains(this.getRootNode().activeElement)) {
+            return true;
+          } else {
+            // Safari 9 focuses the <input> inside <vaadin-radio-button>
+            // Check if the focus is inside <vaadin-radio-button>'s
+            const focusedElements = Array.from(this.querySelectorAll('vaadin-radio-button')).filter(el => {
+              return el.shadowRoot.contains(this.getRootNode().activeElement);
+            });
+            return focusedElements.length > 0;
+          }
         }
 
         _hasEnabledButtons() {
