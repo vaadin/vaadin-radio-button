@@ -34,6 +34,7 @@ This program is available under Apache License Version 2.0, available at https:/
        * Attribute  | Description | Part name
        * -----------|-------------|------------
        * `disabled`   | Set when the radio group and its children are disabled. | :host
+       * `disable-keyboard-nav` | Set to turn off the keyboard navigation for when using in shadow dom. | :host
        *
        * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
        *
@@ -70,6 +71,14 @@ This program is available under Apache License Version 2.0, available at https:/
               type: String,
               notify: true,
               observer: '_valueChanged'
+            },
+
+            /**
+             * Disable keyboard navigation
+             */
+            disableKeyboardNav: {
+              type: Boolean,
+              value: false
             }
           };
         }
@@ -131,7 +140,7 @@ This program is available under Apache License Version 2.0, available at https:/
           this.addEventListener('keydown', e => {
             // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
             var checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
-            if (this.disabled) {
+            if (this.disabled || this.disableKeyboardNav) {
               return;
             }
 
