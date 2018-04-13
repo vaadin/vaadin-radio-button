@@ -89,7 +89,7 @@ This program is available under Apache License Version 2.0, available at https:/
         connectedCallback() {
           super.connectedCallback();
           this._observer = new Polymer.FlattenedNodesObserver(this, (info) => {
-            var checkedChangedListener = (e) => {
+            const checkedChangedListener = (e) => {
               if (e.target.checked) {
                 this._changeSelectedButton(e.target);
               }
@@ -106,6 +106,8 @@ This program is available under Apache License Version 2.0, available at https:/
               button.removeEventListener('checked-changed', checkedChangedListener);
             });
 
+            // Account for Light DOM changes, if the selected element gets added later than the value is set.
+            this._valueChanged(this.value)
           });
         }
 
@@ -139,7 +141,7 @@ This program is available under Apache License Version 2.0, available at https:/
         _addActiveListeners() {
           this.addEventListener('keydown', e => {
             // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
-            var checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
+            const checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
             if (this.disabled || this.disableKeyboardNav) {
               return;
             }
@@ -184,7 +186,7 @@ This program is available under Apache License Version 2.0, available at https:/
             return;
           }
 
-          var nextButton = element.nextElementSibling || this.firstElementChild;
+          const nextButton = element.nextElementSibling || this.firstElementChild;
 
           if (nextButton.disabled) {
             this._selectNextButton(nextButton);
@@ -198,7 +200,7 @@ This program is available under Apache License Version 2.0, available at https:/
             return;
           }
 
-          var previousButton = element.previousElementSibling || this.lastElementChild;
+          const previousButton = element.previousElementSibling || this.lastElementChild;
 
           if (previousButton.disabled) {
             this._selectPreviousButton(previousButton);
@@ -219,14 +221,12 @@ This program is available under Apache License Version 2.0, available at https:/
           this.value = checkedButton.value;
         }
 
-        _valueChanged(newV, oldV) {
-          if (!this._checkedButton || newV != this._checkedButton.value) {
-            const newCheckedButton = this._radioButtons.filter(button => button.value == newV)[0];
+        _valueChanged(newV) {
+          if (!this._checkedButton || newV !== this._checkedButton.value) {
+            const newCheckedButton = this._radioButtons.filter(button => button.value === newV)[0];
 
             if (newCheckedButton) {
               this._selectButton(newCheckedButton);
-            } else {
-              console.warn(`No <vaadin-radio-button> with value ${newV} found.`);
             }
           }
         }
