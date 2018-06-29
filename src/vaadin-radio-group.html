@@ -11,12 +11,45 @@ This program is available under Apache License Version 2.0, available at https:/
 
 <dom-module id="vaadin-radio-group">
   <template>
-    <slot id="slot"></slot>
-    <div part="error-message"
-      id="[[_errorId]]"
-      aria-live="assertive"
-      aria-hidden$="[[_getErrorMessageAriaHidden(invalid, errorMessage, _errorId)]]"
-    >[[errorMessage]]</div>
+    <style>
+      :host {
+        display: inline-flex;
+      }
+
+      :host::before {
+        content: "\2003";
+        width: 0;
+        display: inline-block;
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      .vaadin-group-field-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      [part="label"]:empty {
+        display: none;
+      }
+    </style>
+
+    <div class="vaadin-group-field-container">
+      <label part="label">[[label]]</label>
+
+      <div part="group-field">
+        <slot id="slot"></slot>
+      </div>
+
+      <div part="error-message"
+        id="[[_errorId]]"
+        aria-live="assertive"
+        aria-hidden$="[[_getErrorMessageAriaHidden(invalid, errorMessage, _errorId)]]"
+      >[[errorMessage]]</div>
+    </div>
+
   </template>
 
   <script>
@@ -34,6 +67,13 @@ This program is available under Apache License Version 2.0, available at https:/
        *
        * ### Styling
        *
+       * The following shadow DOM parts are available for styling:
+       *
+       * Part name | Description
+       * ----------------|----------------
+       * `label` | The label element
+       * `group-field` | The element that wraps radio-buttons
+       *
        * The following state attributes are available for styling:
        *
        * Attribute  | Description | Part name
@@ -41,6 +81,7 @@ This program is available under Apache License Version 2.0, available at https:/
        * `disabled`   | Set when the radio group and its children are disabled. | :host
        * `readonly` | Set to a readonly text field | :host
        * `invalid` | Set when the element is invalid | :host
+       * `has-label` | Set when the element has a label | :host
        *
        * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
        *
@@ -107,6 +148,15 @@ This program is available under Apache License Version 2.0, available at https:/
             _checkedButton: {
               type: Object,
               observer: '_checkedButtonChanged'
+            },
+
+            /**
+             * String used for the label element.
+             */
+            label: {
+              type: String,
+              value: '',
+              observer: '_labelChanged'
             },
 
             /**
@@ -323,6 +373,14 @@ This program is available under Apache License Version 2.0, available at https:/
 
         _getErrorMessageAriaHidden(invalid, errorMessage, errorId) {
           return (!this._getActiveErrorId(invalid, errorMessage, errorId)).toString();
+        }
+
+        _labelChanged(label) {
+          if (label) {
+            this.setAttribute('has-label', '');
+          } else {
+            this.removeAttribute('has-label');
+          }
         }
       }
 

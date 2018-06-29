@@ -8,11 +8,11 @@
       "sourceRange": {
         "file": "src/vaadin-radio-group.html",
         "start": {
-          "line": 333,
+          "line": 294,
           "column": 6
         },
         "end": {
-          "line": 333,
+          "line": 294,
           "column": 42
         }
       },
@@ -1454,7 +1454,7 @@
           ]
         },
         {
-          "description": "`<vaadin-radio-group>` is a Polymer element for grouping vaadin-radio-buttons.\n\n```html\n<vaadin-radio-group>\n  <vaadin-radio-button name=\"foo\">Foo</vaadin-radio-button>\n  <vaadin-radio-button name=\"bar\">Bar</vaadin-radio-button>\n  <vaadin-radio-button name=\"baz\">Baz</vaadin-radio-button>\n</vaadin-radio-group>\n```\n\n### Styling\n\nThe following state attributes are available for styling:\n\nAttribute  | Description | Part name\n-----------|-------------|------------\n`disabled`   | Set when the radio group and its children are disabled. | :host\n`readonly` | Set to a readonly text field | :host\n`invalid` | Set when the element is invalid | :host\n\nSee [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)",
+          "description": "`<vaadin-radio-group>` is a Polymer element for grouping vaadin-radio-buttons.\n\n```html\n<vaadin-radio-group>\n  <vaadin-radio-button name=\"foo\">Foo</vaadin-radio-button>\n  <vaadin-radio-button name=\"bar\">Bar</vaadin-radio-button>\n  <vaadin-radio-button name=\"baz\">Baz</vaadin-radio-button>\n</vaadin-radio-group>\n```\n\n### Styling\n\nThe following shadow DOM parts are available for styling:\n\nPart name | Description\n----------------|----------------\n`label` | The label element\n`group-field` | The element that wraps radio-buttons\n\nThe following state attributes are available for styling:\n\nAttribute  | Description | Part name\n-----------|-------------|------------\n`disabled` | Set when the radio group and its children are disabled. | :host\n`has-label` | Set when the element has a label | :host\n\nSee [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)",
           "summary": "",
           "path": "src/vaadin-radio-group.html",
           "properties": [
@@ -1465,11 +1465,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 165,
+                  "line": 164,
                   "column": 8
                 },
                 "end": {
-                  "line": 167,
+                  "line": 166,
                   "column": 9
                 }
               },
@@ -1486,11 +1486,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 61,
+                  "line": 95,
                   "column": 12
                 },
                 "end": {
-                  "line": 65,
+                  "line": 99,
                   "column": 13
                 }
               },
@@ -1502,126 +1502,17 @@
               }
             },
             {
-              "name": "readonly",
-              "type": "boolean | null | undefined",
-              "description": "This attribute indicates that the user cannot modify the value of the control.",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 70,
-                  "column": 12
-                },
-                "end": {
-                  "line": 74,
-                  "column": 13
-                }
-              },
-              "metadata": {
-                "polymer": {
-                  "observer": "\"_readonlyChanged\"",
-                  "attributeType": "Boolean"
-                }
-              }
-            },
-            {
-              "name": "invalid",
-              "type": "boolean | null | undefined",
-              "description": "This property is set to true when the value is invalid.",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 79,
-                  "column": 12
-                },
-                "end": {
-                  "line": 84,
-                  "column": 13
-                }
-              },
-              "metadata": {
-                "polymer": {
-                  "notify": true,
-                  "attributeType": "Boolean"
-                }
-              },
-              "defaultValue": "false"
-            },
-            {
-              "name": "required",
-              "type": "boolean | null | undefined",
-              "description": "Specifies that the user must fill in a value.",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 89,
-                  "column": 12
-                },
-                "end": {
-                  "line": 92,
-                  "column": 13
-                }
-              },
-              "metadata": {
-                "polymer": {
-                  "attributeType": "Boolean"
-                }
-              }
-            },
-            {
-              "name": "errorMessage",
-              "type": "string | null | undefined",
-              "description": "Error to show when the input value is invalid.",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 97,
-                  "column": 12
-                },
-                "end": {
-                  "line": 100,
-                  "column": 13
-                }
-              },
-              "metadata": {
-                "polymer": {
-                  "attributeType": "String"
-                }
-              },
-              "defaultValue": "\"\""
-            },
-            {
-              "name": "_errorId",
-              "type": "string | null | undefined",
-              "description": "",
-              "privacy": "protected",
-              "sourceRange": {
-                "start": {
-                  "line": 102,
-                  "column": 12
-                },
-                "end": {
-                  "line": 104,
-                  "column": 13
-                }
-              },
-              "metadata": {
-                "polymer": {
-                  "attributeType": "String"
-                }
-              }
-            },
-            {
               "name": "_checkedButton",
               "type": "Object | null | undefined",
               "description": "",
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 106,
+                  "line": 101,
                   "column": 12
                 },
                 "end": {
-                  "line": 109,
+                  "line": 104,
                   "column": 13
                 }
               },
@@ -1633,17 +1524,40 @@
               }
             },
             {
+              "name": "label",
+              "type": "string | null | undefined",
+              "description": "String used for the label element.",
+              "privacy": "public",
+              "sourceRange": {
+                "start": {
+                  "line": 109,
+                  "column": 12
+                },
+                "end": {
+                  "line": 113,
+                  "column": 13
+                }
+              },
+              "metadata": {
+                "polymer": {
+                  "observer": "\"_labelChanged\"",
+                  "attributeType": "String"
+                }
+              },
+              "defaultValue": "\"\""
+            },
+            {
               "name": "value",
               "type": "string | null | undefined",
               "description": "Value of the radio group.",
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 114,
+                  "line": 118,
                   "column": 12
                 },
                 "end": {
-                  "line": 118,
+                  "line": 122,
                   "column": 13
                 }
               },
@@ -1663,11 +1577,11 @@
               "privacy": "private",
               "sourceRange": {
                 "start": {
-                  "line": 125,
+                  "line": 129,
                   "column": 8
                 },
                 "end": {
-                  "line": 146,
+                  "line": 150,
                   "column": 9
                 }
               },
@@ -1683,11 +1597,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 148,
+                  "line": 152,
                   "column": 8
                 },
                 "end": {
-                  "line": 163,
+                  "line": 162,
                   "column": 9
                 }
               },
@@ -1703,11 +1617,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 169,
+                  "line": 168,
                   "column": 8
                 },
                 "end": {
-                  "line": 172,
+                  "line": 171,
                   "column": 9
                 }
               },
@@ -1724,7 +1638,7 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 174,
+                  "line": 173,
                   "column": 8
                 },
                 "end": {
@@ -1743,7 +1657,7 @@
               }
             },
             {
-              "name": "_updateDisableButtons",
+              "name": "_addActiveListeners",
               "description": "",
               "privacy": "protected",
               "sourceRange": {
@@ -1752,54 +1666,7 @@
                   "column": 8
                 },
                 "end": {
-                  "line": 191,
-                  "column": 9
-                }
-              },
-              "metadata": {},
-              "params": [],
-              "return": {
-                "type": "void"
-              }
-            },
-            {
-              "name": "_readonlyChanged",
-              "description": "",
-              "privacy": "protected",
-              "sourceRange": {
-                "start": {
-                  "line": 193,
-                  "column": 8
-                },
-                "end": {
-                  "line": 195,
-                  "column": 9
-                }
-              },
-              "metadata": {},
-              "params": [
-                {
-                  "name": "newV"
-                },
-                {
-                  "name": "oldV"
-                }
-              ],
-              "return": {
-                "type": "void"
-              }
-            },
-            {
-              "name": "_addActiveListeners",
-              "description": "",
-              "privacy": "protected",
-              "sourceRange": {
-                "start": {
-                  "line": 197,
-                  "column": 8
-                },
-                "end": {
-                  "line": 214,
+                  "line": 199,
                   "column": 9
                 }
               },
@@ -1815,11 +1682,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 216,
+                  "line": 201,
                   "column": 8
                 },
                 "end": {
-                  "line": 224,
+                  "line": 209,
                   "column": 9
                 }
               },
@@ -1842,11 +1709,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 226,
+                  "line": 211,
                   "column": 8
                 },
                 "end": {
-                  "line": 231,
+                  "line": 216,
                   "column": 9
                 }
               },
@@ -1859,11 +1726,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 234,
+                  "line": 218,
                   "column": 8
                 },
                 "end": {
-                  "line": 236,
+                  "line": 220,
                   "column": 9
                 }
               },
@@ -1876,11 +1743,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 238,
+                  "line": 222,
                   "column": 8
                 },
                 "end": {
-                  "line": 250,
+                  "line": 234,
                   "column": 9
                 }
               },
@@ -1900,11 +1767,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 252,
+                  "line": 236,
                   "column": 8
                 },
                 "end": {
-                  "line": 264,
+                  "line": 248,
                   "column": 9
                 }
               },
@@ -1924,11 +1791,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 266,
+                  "line": 250,
                   "column": 8
                 },
                 "end": {
-                  "line": 270,
+                  "line": 254,
                   "column": 9
                 }
               },
@@ -1948,11 +1815,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 272,
+                  "line": 256,
                   "column": 8
                 },
                 "end": {
-                  "line": 276,
+                  "line": 260,
                   "column": 9
                 }
               },
@@ -1972,11 +1839,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 278,
+                  "line": 262,
                   "column": 8
                 },
                 "end": {
-                  "line": 294,
+                  "line": 272,
                   "column": 9
                 }
               },
@@ -1994,57 +1861,16 @@
               }
             },
             {
-              "name": "validate",
-              "description": "Returns true if `value` is valid.\n`<iron-form>` uses this to check the validity or all its elements.",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 302,
-                  "column": 8
-                },
-                "end": {
-                  "line": 304,
-                  "column": 9
-                }
-              },
-              "metadata": {},
-              "params": [],
-              "return": {
-                "type": "boolean",
-                "desc": "True if the value is valid."
-              }
-            },
-            {
-              "name": "checkValidity",
-              "description": "Returns true if the current input value satisfies all constraints (if any)",
-              "privacy": "public",
-              "sourceRange": {
-                "start": {
-                  "line": 310,
-                  "column": 8
-                },
-                "end": {
-                  "line": 312,
-                  "column": 9
-                }
-              },
-              "metadata": {},
-              "params": [],
-              "return": {
-                "type": "boolean"
-              }
-            },
-            {
               "name": "_setFocusable",
               "description": "",
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 314,
+                  "line": 274,
                   "column": 8
                 },
                 "end": {
-                  "line": 317,
+                  "line": 277,
                   "column": 9
                 }
               },
@@ -2059,58 +1885,28 @@
               }
             },
             {
-              "name": "_getActiveErrorId",
+              "name": "_labelChanged",
               "description": "",
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 319,
+                  "line": 279,
                   "column": 8
                 },
                 "end": {
-                  "line": 321,
+                  "line": 285,
                   "column": 9
                 }
               },
               "metadata": {},
               "params": [
                 {
-                  "name": "invalid"
-                },
-                {
-                  "name": "errorMessage"
-                },
-                {
-                  "name": "errorId"
+                  "name": "label"
                 }
-              ]
-            },
-            {
-              "name": "_getErrorMessageAriaHidden",
-              "description": "",
-              "privacy": "protected",
-              "sourceRange": {
-                "start": {
-                  "line": 323,
-                  "column": 8
-                },
-                "end": {
-                  "line": 325,
-                  "column": 9
-                }
-              },
-              "metadata": {},
-              "params": [
-                {
-                  "name": "invalid"
-                },
-                {
-                  "name": "errorMessage"
-                },
-                {
-                  "name": "errorId"
-                }
-              ]
+              ],
+              "return": {
+                "type": "void"
+              }
             }
           ],
           "staticMethods": [
@@ -2201,11 +1997,11 @@
           "metadata": {},
           "sourceRange": {
             "start": {
-              "line": 51,
+              "line": 85,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 287,
               "column": 7
             }
           },
@@ -2218,11 +2014,11 @@
               "description": "The current disabled state of the radio group. True if group and all internal radio buttons are disabled.",
               "sourceRange": {
                 "start": {
-                  "line": 61,
+                  "line": 95,
                   "column": 12
                 },
                 "end": {
-                  "line": 65,
+                  "line": 99,
                   "column": 13
                 }
               },
@@ -2230,63 +2026,15 @@
               "type": "boolean | null | undefined"
             },
             {
-              "name": "readonly",
-              "description": "This attribute indicates that the user cannot modify the value of the control.",
+              "name": "label",
+              "description": "String used for the label element.",
               "sourceRange": {
                 "start": {
-                  "line": 70,
+                  "line": 109,
                   "column": 12
                 },
                 "end": {
-                  "line": 74,
-                  "column": 13
-                }
-              },
-              "metadata": {},
-              "type": "boolean | null | undefined"
-            },
-            {
-              "name": "invalid",
-              "description": "This property is set to true when the value is invalid.",
-              "sourceRange": {
-                "start": {
-                  "line": 79,
-                  "column": 12
-                },
-                "end": {
-                  "line": 84,
-                  "column": 13
-                }
-              },
-              "metadata": {},
-              "type": "boolean | null | undefined"
-            },
-            {
-              "name": "required",
-              "description": "Specifies that the user must fill in a value.",
-              "sourceRange": {
-                "start": {
-                  "line": 89,
-                  "column": 12
-                },
-                "end": {
-                  "line": 92,
-                  "column": 13
-                }
-              },
-              "metadata": {},
-              "type": "boolean | null | undefined"
-            },
-            {
-              "name": "error-message",
-              "description": "Error to show when the input value is invalid.",
-              "sourceRange": {
-                "start": {
-                  "line": 97,
-                  "column": 12
-                },
-                "end": {
-                  "line": 100,
+                  "line": 113,
                   "column": 13
                 }
               },
@@ -2298,11 +2046,11 @@
               "description": "Value of the radio group.",
               "sourceRange": {
                 "start": {
-                  "line": 114,
+                  "line": 118,
                   "column": 12
                 },
                 "end": {
-                  "line": 118,
+                  "line": 122,
                   "column": 13
                 }
               },
@@ -2311,12 +2059,6 @@
             }
           ],
           "events": [
-            {
-              "type": "CustomEvent",
-              "name": "invalid-changed",
-              "description": "Fired when the `invalid` property changes.",
-              "metadata": {}
-            },
             {
               "type": "CustomEvent",
               "name": "value-changed",
@@ -2334,12 +2076,12 @@
               "name": "",
               "range": {
                 "start": {
-                  "line": 13,
-                  "column": 4
+                  "line": 42,
+                  "column": 8
                 },
                 "end": {
-                  "line": 13,
-                  "column": 27
+                  "line": 42,
+                  "column": 31
                 }
               }
             }
