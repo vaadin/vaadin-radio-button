@@ -9,6 +9,8 @@
         -webkit-user-select: none;
         user-select: none;
         cursor: default;
+        /* https://github.com/vaadin/vaadin-radio-button/issues/93 */
+        overflow: hidden;
       }
 
       [part="label"]:not(:empty) {
