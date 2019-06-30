@@ -481,6 +481,37 @@
           expect(spy).to.not.be.called;
         });
       });
+
+      describe('RTL', () => {
+        beforeEach(() => {
+          vaadinRadioButtonGroup.setAttribute('dir', 'rtl');
+          vaadinRadioButtonList[1].checked = true;
+        });
+
+        it('next/first radio button should be focused and checked after left/up', () => {
+          MockInteractions.keyDownOn(vaadinRadioButtonGroup, 39);
+          MockInteractions.keyUpOn(vaadinRadioButtonGroup, 39);
+          expect(vaadinRadioButtonList[0].checked).to.be.true;
+          expect(vaadinRadioButtonList[1].checked).to.be.false;
+
+          MockInteractions.keyDownOn(vaadinRadioButtonGroup, 40);
+          MockInteractions.keyUpOn(vaadinRadioButtonGroup, 40);
+          expect(vaadinRadioButtonList[2].checked).to.be.true;
+          expect(vaadinRadioButtonList[0].checked).to.be.false;
+        });
+
+        it('previous/last radio button should be focused and checked after right/down', () => {
+          MockInteractions.keyDownOn(vaadinRadioButtonGroup, 37);
+          MockInteractions.keyUpOn(vaadinRadioButtonGroup, 37);
+          expect(vaadinRadioButtonList[2].checked).to.be.true;
+          expect(vaadinRadioButtonList[0].checked).to.be.false;
+
+          MockInteractions.keyDownOn(vaadinRadioButtonGroup, 38);
+          MockInteractions.keyUpOn(vaadinRadioButtonGroup, 38);
+          expect(vaadinRadioButtonList[0].checked).to.be.true;
+          expect(vaadinRadioButtonList[2].checked).to.be.false;
+        });
+      });
     });
 
     describe('radio-group-with-initial-checked-button', () => {
