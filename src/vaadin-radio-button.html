@@ -257,7 +257,12 @@ This program is available under Apache License Version 2.0, available at https:/
         get focusElement() {
           return this.shadowRoot.querySelector('input');
         }
-
+          
+        /**
+         * Fired when the user toggles the radio button.
+         *
+         * @event change
+         */
         _onChange(e) {
           // In the Shadow DOM, the `change` event is not leaked into the
           // ancestor tree, so we must do this manually.
@@ -272,11 +277,6 @@ This program is available under Apache License Version 2.0, available at https:/
         }
       }
 
-      /**
-       * Fired when the user toggles the radio button.
-       *
-       * @event change
-       */
 
       customElements.define(RadioButtonElement.is, RadioButtonElement);
 
