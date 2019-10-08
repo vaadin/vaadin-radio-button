@@ -23,15 +23,15 @@
 
   <body>
     <vaadin-component-demo config-src="demos.json"></vaadin-component-demo>
+
+    <dom-module id="custom-radio-button-icon-color" theme-for="vaadin-radio-button">
+      <template>
+        <style>
+          :host([theme~="custom"][checked]) [part="radio"] {
+            background-color: green;
+          }
+        </style>
+      </template>
+    </dom-module>
   </body>
 </html>
-
-<dom-module id="custom-radio-button-icon-color" theme-for="vaadin-radio-button">
-  <template>
-    <style>
-      :host([theme~="custom"][checked]) [part="radio"] {
-        background-color: green;
-      }
-    </style>
-  </template>
-</dom-module>
