@@ -289,10 +289,10 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _selectIncButton(next, checkedRadioButton) {
-          if (!next) {
-            this._selectPreviousButton(checkedRadioButton);
-          } else {
+          if (next) {
             this._selectNextButton(checkedRadioButton);
+          } else {
+            this._selectPreviousButton(checkedRadioButton);
           }
         }
 
