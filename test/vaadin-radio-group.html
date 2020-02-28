@@ -497,6 +497,7 @@
       });
 
       describe('change event', () => {
+
         it('should fire on right/down', () => {
           vaadinRadioButtonList[1].focus();
           vaadinRadioButtonList[1].checked = true;
@@ -613,14 +614,24 @@
     });
 
     describe('vaadin-radio-group wrapping', () => {
-      let vaadinRadioButtonGroup;
+      let vaadinRadioButtonGroup, vaadinRadioButtonList;
 
       beforeEach((done) => {
         vaadinRadioButtonGroup = fixture('wrapping');
+        vaadinRadioButtonList = vaadinRadioButtonGroup.querySelectorAll('vaadin-radio-button');
         vaadinRadioButtonGroup._observer.flush();
         animationFrameFlush(done);
       });
 
+      it('should value on the vaadin-radio-group is updated at the time when change is fired', () => {
+        vaadinRadioButtonGroup.addEventListener('change', e => {
+          expect(vaadinRadioButtonGroup.value).to.equal(vaadinRadioButtonList[2].value);
+          expect(e.target.textContent).to.equal(vaadinRadioButtonList[2].textContent);
+          expect(e.currentTarget.value).to.equal(vaadinRadioButtonList[2].value);
+        });
+        vaadinRadioButtonList[2].click();
+      });
+    
       it('should not overflow horizontally', () => {
         const parentWidth = vaadinRadioButtonGroup.parentElement.offsetWidth;
         expect(vaadinRadioButtonGroup.offsetWidth).to.be.lte(parentWidth);
