@@ -182,10 +182,18 @@ This program is available under Apache License Version 2.0, available at https:/
 
           this._addListeners();
 
+          this.addEventListener('change', e => {
+            if (e.composedPath()[0] instanceof Vaadin.RadioButtonElement) {
+              e.stopImmediatePropagation();
+              // store reference to the original event
+              this.__inputChange = e.detail.sourceEvent;
+            }
+          });
+
           this._observer = new Polymer.FlattenedNodesObserver(this, info => {
             const checkedChangedListener = e => {
               if (e.target.checked) {
-                this._changeSelectedButton(e.target);
+                this._changeSelectedButton(e.target, Boolean(this.__inputChange));
               }
             };
 
@@ -371,6 +379,18 @@ This program is available under Apache License Version 2.0, available at https:/
           this.validate();
           this.readonly && this._updateDisableButtons();
           button && this._setFocusable(this._radioButtons.indexOf(button));
+
+          if (fireChangeEvent) {
+            const { bubbles, cancelable } = this.__inputChange;
+            this.__inputChange = null;
+            this.dispatchEvent(new CustomEvent('change', {
+              detail: {
+                sourceEvent: this.__inputChange
+              },
+              bubbles,
+              cancelable
+            }));
+          }
         }
 
         _valueChanged(newV, oldV) {
