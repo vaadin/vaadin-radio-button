@@ -179,7 +179,6 @@ This program is available under Apache License Version 2.0, available at https:/
 
         ready() {
           super.ready();
-    
           this._addListeners();
           this._observer = new Polymer.FlattenedNodesObserver(this, info => {
             const checkedChangedListener = e => {
@@ -258,7 +257,6 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _addListeners() {
-    
           this.addEventListener('keydown', e => {
             this.isKeyDown = true;
             // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
@@ -277,7 +275,6 @@ This program is available under Apache License Version 2.0, available at https:/
               e.preventDefault();
               this._selectIncButton(!horizontalRTL, checkedRadioButton);
             }
-            this._checkKeyDown = true;
           });
 
           this.addEventListener('focusin', () => this._setFocused(this._containsFocus()));
