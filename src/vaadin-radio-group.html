@@ -179,9 +179,8 @@ This program is available under Apache License Version 2.0, available at https:/
 
         ready() {
           super.ready();
-
+    
           this._addListeners();
-
           this._observer = new Polymer.FlattenedNodesObserver(this, info => {
             const checkedChangedListener = e => {
               if (e.target.checked) {
@@ -259,7 +258,9 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _addListeners() {
+    
           this.addEventListener('keydown', e => {
+            this.isKeyDown = true;
             // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
             var checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
             const horizontalRTL = this.getAttribute('dir') === 'rtl'
@@ -276,6 +277,7 @@ This program is available under Apache License Version 2.0, available at https:/
               e.preventDefault();
               this._selectIncButton(!horizontalRTL, checkedRadioButton);
             }
+            this._checkKeyDown = true;
           });
 
           this.addEventListener('focusin', () => this._setFocused(this._containsFocus()));
@@ -346,7 +348,7 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _changeSelectedButton(button, fireChangeEvent) {
-          if (this._checkedButton === button) {
+          if (this._checkedButton === button && !this.isKeyDown) {
             return;
           }
 
@@ -371,6 +373,7 @@ This program is available under Apache License Version 2.0, available at https:/
           this.validate();
           this.readonly && this._updateDisableButtons();
           button && this._setFocusable(this._radioButtons.indexOf(button));
+          this.isKeyDown = false;
         }
 
         _valueChanged(newV, oldV) {
