@@ -260,7 +260,6 @@ This program is available under Apache License Version 2.0, available at https:/
 
         _addListeners() {
           this.addEventListener('keydown', e => {
-            this._isKeyDown = true;
             // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
             var checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
             const horizontalRTL = this.getAttribute('dir') === 'rtl'
@@ -347,12 +346,16 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _changeSelectedButton(button, fireChangeEvent) {
-          if (this._checkedButton === button && !this._isKeyDown) {
+          if (this._checkedButton === button) {
             return;
           }
 
           this._checkedButton = button;
 
+          if (this._checkedButton) {
+            this.value = this._checkedButton.value;
+          }
+    
           this._radioButtons.forEach(button => {
             if (button === this._checkedButton) {
               if (fireChangeEvent) {
@@ -365,14 +368,9 @@ This program is available under Apache License Version 2.0, available at https:/
             }
           });
 
-          if (this._checkedButton) {
-            this.value = this._checkedButton.value;
-          }
-
           this.validate();
           this.readonly && this._updateDisableButtons();
           button && this._setFocusable(this._radioButtons.indexOf(button));
-          this._isKeyDown = false;
         }
 
         _valueChanged(newV, oldV) {
