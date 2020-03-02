@@ -549,7 +549,7 @@
           expect(spy).to.not.be.called;
         });
     
-        it('should value on the vaadin-radio-group is updated on click at the time when change event is fired', done => {
+        it('should value on the vaadin-radio-group is updated at the time when change event is fired after click selection', done => {
           // Mouse event
           vaadinRadioButtonGroup.addEventListener('change', e => {
             expect(vaadinRadioButtonGroup.value).to.equal(vaadinRadioButtonList[2].value);
@@ -558,7 +558,7 @@
           vaadinRadioButtonList[2].click();
         });
 
-        it('should change event on radio-group includes updated value on click', done => {
+        it('should include updated value on change event on radio-group after click selection', done => {
           vaadinRadioButtonGroup.addEventListener('change', e => {
             expect(e.target).to.equal(vaadinRadioButtonList[2]);
             expect(e.currentTarget.value).to.equal(vaadinRadioButtonList[2].value);
@@ -567,7 +567,7 @@
           vaadinRadioButtonList[2].click();
         });
 
-        it('should value on the vaadin-radio-group is updated on keyboard selection at the time when change event is fired', done => {
+        it('should value on the vaadin-radio-group is updated at the time when change event is fired after keyboard selection', done => {
           vaadinRadioButtonList[1].focus();
           vaadinRadioButtonList[1].checked = true;
           // keyboard selection
@@ -578,7 +578,7 @@
           MockInteractions.keyDownOn(vaadinRadioButtonGroup, 37);
         });
 
-        it('should change event on radio-group includes updated value on keyboard selection', done => {
+        it('should include updated value on change event on radio-group after keyboard selection', done => {
           vaadinRadioButtonList[1].focus();
           vaadinRadioButtonList[1].checked = true;
           vaadinRadioButtonGroup.addEventListener('change', e => {
