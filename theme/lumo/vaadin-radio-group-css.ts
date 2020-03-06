@@ -93,9 +93,8 @@ export const radioGroupStyles = css`
     max-height: 5em;
   }
 
-  /* Do not reserve space when there is no error message */
-  [part='error-message']:not(:empty)::before,
-  [part='error-message']:not(:empty)::after {
+  [part='error-message']::before,
+  [part='error-message']::after {
     content: '';
     display: block;
     height: 0.4em;

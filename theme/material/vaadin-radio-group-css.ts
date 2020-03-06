@@ -56,8 +56,7 @@ export const radioGroupStyles = css`
     color: var(--material-error-text-color);
   }
 
-  /* Margin that doesn’t reserve space when there’s no error message */
-  [part='error-message']:not(:empty)::before {
+  [part='error-message']::before {
     content: '';
     display: block;
     height: 6px;
@@ -79,13 +78,8 @@ export const radioGroupStyles = css`
     }
   }
 
-  [part='label']:empty {
+  :host(:not([has-label])) [part='label'] {
     display: none;
-  }
-
-  [part='label']:empty::before {
-    content: ' ';
-    position: absolute;
   }
 
   :host([disabled]) [part='label'] {
