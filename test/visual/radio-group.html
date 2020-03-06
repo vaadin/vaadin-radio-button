@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Radio-group tests</title>
+</head>
+
+<body>
+
+  <div id="default-tests" style="padding: 6px;">
+    <vaadin-radio-group>
+      <vaadin-radio-button checked>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+      <vaadin-radio-button>3</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Label">
+      <vaadin-radio-button checked>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+      <vaadin-radio-button>3</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Focused">
+      <vaadin-radio-button id="radio">1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Disabled" disabled>
+      <vaadin-radio-button>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Required" required error-message="Error message">
+      <vaadin-radio-button checked>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+      <vaadin-radio-button>3</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Invalid" required error-message="Error message" invalid>
+      <vaadin-radio-button>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+      <vaadin-radio-button>3</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <br>
+
+    <vaadin-radio-group orientation="horizontal">
+      <vaadin-radio-button>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+    </vaadin-radio-group>
+
+    <vaadin-radio-group label="Horizontal" orientation="horizontal">
+      <vaadin-radio-button>1</vaadin-radio-button>
+      <vaadin-radio-button>2</vaadin-radio-button>
+    </vaadin-radio-group>
+
+  </div>
+
+  <script type="module">
+    import { tabKeyDown, focusin } from '@vaadin/test-helpers';
+
+    window.focusRadio = () => {
+      tabKeyDown(document.body);
+      focusin(document.getElementById('radio'));
+    }
+
+    (async() => {
+      const groups = Array.from(document.querySelectorAll('vaadin-radio-group'));
+      const theme = window.location.search.replace(/.*theme=(\w+).*/, '$1') || 'lumo';
+
+      await import('../../theme/' + theme + '/vaadin-radio-group.js');
+
+      await Promise.all(groups.map(el => el.updateComplete));
+
+      window.requestAnimationFrame(() => {
+        window.webComponentsAreReady = true;
+      });
+    })();
+  </script>
+
+</body>
+</html>
