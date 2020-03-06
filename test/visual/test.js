@@ -1,43 +1,46 @@
-gemini.suite('vaadin-radio-button', function(rootSuite) {
+gemini.suite('vaadin-radio-button', rootSuite => {
   function wait(actions, find) {
-    actions.wait(5000);
+    return actions.waitForJSCondition(window => {
+      return window.webComponentsAreReady;
+    }, 80000);
   }
 
-  function goToAboutBlank(actions, find) {
-    // Firefox stops responding on socket after a test, workaround:
-    return actions.executeJS(function(window) {
-      window.location.href = 'about:blank'; // just go away, please!
-    });
-  }
+  rootSuite.before(wait);
 
-  rootSuite
-    .before(wait)
-    .after(goToAboutBlank);
   ['lumo', 'material'].forEach(theme => {
-    gemini.suite(`default-tests-${theme}`, function(suite) {
+    gemini.suite(`radio-button-tests-${theme}`, suite => {
       suite
-        .setUrl(`default.html?theme=${theme}`)
+        .setUrl(`radio-button.html?theme=${theme}`)
         .setCaptureElements('#default-tests')
-        .capture('default', function(actions) {
-          actions.executeJS(function(window) {
-            window.focusRadio();
+        .capture('default')
+        .capture('rtl', actions => {
+          actions.executeJS(window => {
+            window.document.documentElement.setAttribute('dir', 'rtl');
           });
         });
     });
 
-    gemini.suite(`default-rtl-tests-${theme}`, function(suite) {
+    gemini.suite(`radio-group-tests-${theme}`, suite => {
       suite
-        .setUrl(`default-rtl.html?theme=${theme}`)
+        .setUrl(`radio-group.html?theme=${theme}`)
         .setCaptureElements('#default-tests')
-        .capture('default');
+        .capture('default', actions => {
+          actions.executeJS(window => {
+            window.focusRadio();
+          });
+        })
+        .capture('rtl', actions => {
+          actions.executeJS(window => {
+            window.document.documentElement.setAttribute('dir', 'rtl');
+          });
+        });
     });
 
-    gemini.suite(`wrapping-tests-${theme}`, function(suite) {
+    gemini.suite(`radio-group-wrapping-tests-${theme}`, suite => {
       suite
-        .setUrl(`wrapping.html?theme=${theme}`)
+        .setUrl(`radio-group-wrapping.html?theme=${theme}`)
         .setCaptureElements('#wrapping-tests')
         .capture('wrapping');
     });
   });
-
 });
