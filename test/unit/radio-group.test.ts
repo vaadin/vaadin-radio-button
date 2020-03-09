@@ -218,6 +218,16 @@ describe('radio-group', () => {
       expect(group.hasAttribute('has-value')).to.be.false;
     });
 
+    it('should dispatch value-changed event when value changes', async () => {
+      const spy = sinon.spy();
+      group.addEventListener('value-changed', spy);
+      buttons[0].checked = true;
+      await buttons[0].updateComplete;
+      await group.updateComplete;
+      await group.updateComplete;
+      expect(spy).to.be.calledOnce;
+    });
+
     it('should not focus radio group when value is set programmatically', async () => {
       const input = document.createElement('input');
       document.body.appendChild(input);
@@ -554,6 +564,16 @@ describe('radio-group', () => {
       focusout(group, false);
       await group.updateComplete;
       expect(group.invalid).to.be.false;
+    });
+
+    it('should dispatch invalid-changed event when invalid changes', async () => {
+      const spy = sinon.spy();
+      group.addEventListener('invalid-changed', spy);
+      group.required = true;
+      await group.updateComplete;
+      focusout(group, true);
+      await group.updateComplete;
+      expect(spy).to.be.calledOnce;
     });
   });
 
