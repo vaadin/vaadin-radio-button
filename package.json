@@ -16,7 +16,7 @@
   "author": "Vaadin Ltd",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/vaadin/vaadin-taradio-buttons/issues"
+    "url": "https://github.com/vaadin/vaadin-radio-buttons/issues"
   },
   "homepage": "https://vaadin.com/components",
   "files": [
