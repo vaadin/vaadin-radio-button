@@ -229,7 +229,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
             radio.disabled = true; // eslint-disable-line no-param-reassign
           }
           if (radio.checked) {
-            this._changeSelectedButton(radio);
+            this._selectButton(radio);
           }
         });
 
@@ -258,7 +258,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       super._onFocusout && super._onFocusout(event);
     }
 
-    private _changeSelectedButton(radio?: RadioButton, fireChangeEvent?: boolean) {
+    private _selectButton(radio?: RadioButton, fireChangeEvent?: boolean) {
       if (this._checkedButton === radio) {
         return;
       }
@@ -303,12 +303,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
 
     private _onCheckedChanged(event: CustomEvent) {
       if (event.detail.value) {
-        this._changeSelectedButton(event.composedPath()[0] as RadioButton, Boolean(this._inputChange));
+        this._selectButton(event.composedPath()[0] as RadioButton, Boolean(this._inputChange));
       }
-    }
-
-    private _selectButton(radio: RadioButton, fireChangeEvent: boolean) {
-      this._changeSelectedButton(radio, fireChangeEvent);
     }
 
     private _updateDisableButtons() {
@@ -326,7 +322,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
 
     private _valueChanged(newV: string | null | undefined, oldV: unknown) {
       if (oldV && (newV === '' || newV === null || newV === undefined)) {
-        this._changeSelectedButton(undefined);
+        this._selectButton(undefined);
         this.removeAttribute('has-value');
         return;
       }
