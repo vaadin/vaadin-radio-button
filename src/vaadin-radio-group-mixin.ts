@@ -175,6 +175,14 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
           })
         );
       }
+
+      if (props.has('invalid')) {
+        this.dispatchEvent(
+          new CustomEvent('invalid-changed', {
+            detail: { value: this.invalid }
+          })
+        );
+      }
     }
 
     protected get _containsFocus() {
