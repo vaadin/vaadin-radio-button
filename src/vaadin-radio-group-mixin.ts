@@ -190,20 +190,32 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       return Boolean(root.activeElement && this.contains(root.activeElement));
     }
 
+    /**
+     * @see DirectionClass
+     */
     protected get _vertical() {
       return this.orientation !== 'horizontal';
     }
 
+    /**
+     * @see SlottedItemsMixin
+     */
     protected _filterItems() {
       return filterRadioButtons(Array.from(this.children));
     }
 
+    /**
+     * @see KeyboardDirectionClass
+     */
     protected _focus(radio: RadioButton) {
       super._focus && super._focus(radio);
 
       this._checkedButton && this._selectButton(radio, true);
     }
 
+    /**
+     * @see SlottedItemsMixin
+     */
     protected _itemsChanged(radios: RadioButton[], oldRadios: RadioButton[]) {
       super._itemsChanged && super._itemsChanged(radios, oldRadios);
 
@@ -231,10 +243,16 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
         });
     }
 
+    /**
+     * @see FocusVisibleClass
+     */
     protected _onFocusin(_event: FocusEvent) {
       this._setFocused && this._setFocused(this._containsFocus && !this.disabled);
     }
 
+    /**
+     * @see FocusVisibleClass
+     */
     protected _onFocusout(event: FocusEvent) {
       event.composed && this.validate();
       super._onFocusout && super._onFocusout(event);
