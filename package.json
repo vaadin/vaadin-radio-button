@@ -49,6 +49,7 @@
     "lint:css": "stylelint src/*.ts theme/**/*.ts test/*.ts",
     "lint:js": "eslint src theme test --ext .ts --ignore-path .gitignore",
     "lint:lit": "lit-analyzer src --strict",
+    "prestart": "npm run analyze",
     "prepublishOnly": "npm run build",
     "preversion": "magi update-version",
     "serve:dist": "es-dev-server --app-index dist/index.html --open",
