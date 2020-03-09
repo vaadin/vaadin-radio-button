@@ -88,14 +88,12 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
     protected _onChange(event: Event) {
       this.checked = (event.target as HTMLInputElement).checked;
 
-      const changeEvent = new CustomEvent('change', {
-        detail: {
-          sourceEvent: event
-        },
-        bubbles: event.bubbles,
-        cancelable: event.cancelable
-      });
-      this.dispatchEvent(changeEvent);
+      this.dispatchEvent(
+        new Event('change', {
+          bubbles: true,
+          cancelable: false
+        })
+      );
     }
 
     /**

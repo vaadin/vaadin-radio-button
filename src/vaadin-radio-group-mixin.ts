@@ -98,7 +98,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
 
     private _errorId = `vaadin-radio-group-error-${(uniqueId += 1)}`;
 
-    private _inputChange?: Event;
+    private _inputChange?: boolean;
 
     protected render() {
       return html`
@@ -128,8 +128,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       this.addEventListener('change', (event: Event) => {
         if (this.items.includes(event.composedPath()[0] as HTMLElement)) {
           event.stopImmediatePropagation();
-          // store reference to the original event
-          this._inputChange = (event as CustomEvent).detail.sourceEvent;
+          this._inputChange = true;
         }
       });
     }
@@ -286,16 +285,11 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       radio && this._setTabIndex && this._setTabIndex(radio);
 
       if (fireChangeEvent && this._inputChange) {
-        const sourceEvent = this._inputChange;
-        const { bubbles, cancelable } = sourceEvent;
         this._inputChange = undefined;
         this.dispatchEvent(
-          new CustomEvent('change', {
-            detail: {
-              sourceEvent
-            },
-            bubbles,
-            cancelable
+          new Event('change', {
+            bubbles: true,
+            cancelable: false
           })
         );
       }
@@ -303,7 +297,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
 
     private _onCheckedChanged(event: CustomEvent) {
       if (event.detail.value) {
-        this._selectButton(event.composedPath()[0] as RadioButton, Boolean(this._inputChange));
+        this._selectButton(event.composedPath()[0] as RadioButton, this._inputChange);
       }
     }
 
