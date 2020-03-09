@@ -204,18 +204,6 @@ describe('radio-button', () => {
       const event = spy.getCall(0).args[0];
       expect(event).to.have.property('composed', false);
     });
-
-    it('should contain sourceEvent detail', async () => {
-      radio.click();
-      await radio.updateComplete;
-      const event = spy.getCall(0).args[0];
-      expect(event)
-        .to.have.property('detail')
-        .that.has.property('sourceEvent')
-        .that.is.instanceof(Event)
-        .and.has.property('type')
-        .equal('change');
-    });
   });
 
   describe('ARIA', () => {

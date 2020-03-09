@@ -491,12 +491,7 @@ describe('radio-group', () => {
       await group.updateComplete;
       expect(spy.callCount).to.equal(1);
       const event = spy.getCall(0).args[0];
-      expect(event)
-        .to.have.property('detail')
-        .that.has.property('sourceEvent')
-        .that.is.instanceof(Event)
-        .and.has.property('type')
-        .equal('change');
+      expect(event).to.be.instanceof(Event);
     });
 
     it('should fire when selecting a radio button from keyboard', async () => {
@@ -507,12 +502,23 @@ describe('radio-group', () => {
       await group.updateComplete;
       expect(spy.callCount).to.equal(1);
       const event = spy.getCall(0).args[0];
-      expect(event)
-        .to.have.property('detail')
-        .that.has.property('sourceEvent')
-        .that.is.instanceof(Event)
-        .and.has.property('type')
-        .equal('change');
+      expect(event).to.be.instanceof(Event);
+    });
+
+    it('should bubble', async () => {
+      buttons[1].click();
+      await group.updateComplete;
+      expect(spy.callCount).to.equal(1);
+      const event = spy.getCall(0).args[0];
+      expect(event).to.have.property('bubbles', true);
+    });
+
+    it('should not be composed', async () => {
+      buttons[1].click();
+      await group.updateComplete;
+      expect(spy.callCount).to.equal(1);
+      const event = spy.getCall(0).args[0];
+      expect(event).to.have.property('composed', false);
     });
 
     it('should not fire on programmatic value change', async () => {
