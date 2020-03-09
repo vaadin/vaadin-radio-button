@@ -56,6 +56,26 @@ describe('radio-button', () => {
       await radio.updateComplete;
       expect(input.disabled).to.be.true;
     });
+
+    it('should dispatch click event on host click', async () => {
+      const spy = sinon.spy();
+      input.addEventListener('click', spy);
+      radio.click();
+      await radio.updateComplete;
+      expect(spy).to.be.calledOnce;
+      const event = spy.getCall(0).args[0];
+      expect(event).to.be.instanceof(MouseEvent);
+    });
+
+    it('should not dispatch click event when disabled', async () => {
+      const spy = sinon.spy();
+      input.addEventListener('click', spy);
+      radio.disabled = true;
+      await radio.updateComplete;
+      radio.click();
+      await radio.updateComplete;
+      expect(spy).to.not.be.called;
+    });
   });
 
   describe('checked property', () => {

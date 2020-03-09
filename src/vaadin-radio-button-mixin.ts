@@ -72,7 +72,13 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
      * @protected
      */
     click() {
-      this.focusElement.click();
+      // If you change this block, please test manually that radio-button and
+      // radio-group still works ok on iOS 12/13 and up as it may cause
+      // an issue that is not possible to test programmatically.
+      // See: https://github.com/vaadin/vaadin-radio-button/issues/140
+      if (!this.disabled) {
+        this.focusElement.dispatchEvent(new MouseEvent('click'));
+      }
     }
 
     protected get focusElement() {
