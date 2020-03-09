@@ -98,6 +98,9 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
       this.dispatchEvent(changeEvent);
     }
 
+    /**
+     * @see KeyboardClass
+     */
     protected _onKeyDown(event: KeyboardEvent) {
       super._onKeyDown && super._onKeyDown(event);
 
@@ -106,6 +109,9 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
       }
     }
 
+    /**
+     * @see KeyboardClass
+     */
     protected _onKeyUp(event: KeyboardEvent) {
       super._onKeyUp && super._onKeyUp(event);
 
@@ -121,6 +127,9 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
       }
     }
 
+    /**
+     * @see ActiveStateClass
+     */
     protected _onTouchEnd(event: TouchEvent) {
       super._onTouchEnd && super._onTouchEnd(event);
 
