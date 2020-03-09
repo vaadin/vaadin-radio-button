@@ -94,6 +94,15 @@ describe('radio-group', () => {
         expect(button.disabled).to.be.false;
       });
     });
+
+    it('should reflect to attribute', async () => {
+      group.readonly = true;
+      await group.updateComplete;
+      expect(group.hasAttribute('readonly')).to.be.true;
+      group.readonly = false;
+      await group.updateComplete;
+      expect(group.hasAttribute('readonly')).to.be.false;
+    });
   });
 
   describe('label property', () => {
@@ -109,6 +118,18 @@ describe('radio-group', () => {
       group.label = null;
       await group.updateComplete;
       expect(group.hasAttribute('has-label')).to.be.false;
+    });
+  });
+
+  describe('orientation property', () => {
+    it('should not be defined by default', () => {
+      expect(group.orientation).to.be.undefined;
+    });
+
+    it('should reflect to attribute', async () => {
+      group.orientation = 'horizontal';
+      await group.updateComplete;
+      expect(group.getAttribute('orientation')).to.equal('horizontal');
     });
   });
 
@@ -574,6 +595,24 @@ describe('radio-group', () => {
       focusout(group, true);
       await group.updateComplete;
       expect(spy).to.be.calledOnce;
+    });
+
+    it('should reflect required property to attribute', async () => {
+      group.required = true;
+      await group.updateComplete;
+      expect(group.hasAttribute('required')).to.be.true;
+      group.required = false;
+      await group.updateComplete;
+      expect(group.hasAttribute('required')).to.be.false;
+    });
+
+    it('should reflect invalid property to attribute', async () => {
+      group.invalid = true;
+      await group.updateComplete;
+      expect(group.hasAttribute('invalid')).to.be.true;
+      group.invalid = false;
+      await group.updateComplete;
+      expect(group.hasAttribute('invalid')).to.be.false;
     });
   });
 
