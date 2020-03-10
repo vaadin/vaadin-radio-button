@@ -85,7 +85,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
      * When true, the radio group must have a value set by the user.
      */
     @property({ type: Boolean, reflect: true })
-    required?: boolean;
+    required?: boolean = false;
 
     /**
      * When true, the user cannot modify the value of the radio group.
