@@ -18,11 +18,11 @@ export interface RadioGroupInterface {
 
   label: string | null | undefined;
 
-  invalid: boolean | null | undefined;
+  invalid?: boolean;
 
-  required: boolean | null | undefined;
+  required?: boolean;
 
-  readonly: boolean | null | undefined;
+  readOnly?: boolean;
 
   errorMessage: string | null | undefined;
 
@@ -60,37 +60,44 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
     /**
      * String used for the label element.
      */
-    @property({ type: String }) label: string | null | undefined;
+    @property({ type: String })
+    label: string | null | undefined;
 
     /**
      * Value of the radio group.
      */
-    @property({ type: String }) value: string | null | undefined;
+    @property({ type: String })
+    value: string | null | undefined;
 
     /**
      * When true, the radio group value is invalid.
      */
-    @property({ type: Boolean, reflect: true }) invalid: boolean | null | undefined = false;
+    @property({ type: Boolean, reflect: true })
+    invalid?: boolean = false;
 
     /**
      * Radio group is aligned vertically by default. Set to "horizontal" to change this.
      */
-    @property({ type: String, reflect: true }) orientation: string | null | undefined;
+    @property({ type: String, reflect: true })
+    orientation: string | null | undefined;
 
     /**
      * When true, the radio group must have a value set by the user.
      */
-    @property({ type: Boolean, reflect: true }) required: boolean | null | undefined;
+    @property({ type: Boolean, reflect: true })
+    required?: boolean;
 
     /**
      * When true, the user cannot modify the value of the radio group.
      */
-    @property({ type: Boolean, reflect: true }) readonly: boolean | null | undefined;
+    @property({ type: Boolean, reflect: true, attribute: 'readonly' })
+    readOnly?: boolean;
 
     /**
      * Error to show when the radio group value is invalid.
      */
-    @property({ type: String, attribute: 'error-message' }) errorMessage: string | null | undefined;
+    @property({ type: String, attribute: 'error-message' })
+    errorMessage: string | null | undefined;
 
     private _boundCheckedChanged = this._onCheckedChanged.bind(this) as EventListener;
 
@@ -157,7 +164,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
     protected updated(props: PropertyValues) {
       super.updated(props);
 
-      if (props.has('disabled') || props.has('readonly')) {
+      if (props.has('disabled') || props.has('readOnly')) {
         this._updateDisableButtons();
       }
 
@@ -283,7 +290,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       });
 
       this.validate();
-      this.readonly && this._updateDisableButtons();
+      this.readOnly && this._updateDisableButtons();
       radio && this._setTabIndex && this._setTabIndex(radio);
 
       if (fireChangeEvent) {
@@ -303,7 +310,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
     }
 
     private _onCheckedChanged(event: CustomEvent) {
-      if (event.detail.value) {
+      if (event.detail.value === true) {
         this._selectButton(event.composedPath()[0] as RadioButton, this._inputChange);
       }
     }
@@ -313,8 +320,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
         const button = radio as RadioButton;
         if (this.disabled) {
           button.disabled = true;
-        } else if (this.readonly) {
-          button.disabled = button !== this._checkedButton && this.readonly;
+        } else if (this.readOnly) {
+          button.disabled = button !== this._checkedButton && this.readOnly;
         } else {
           button.disabled = false;
         }

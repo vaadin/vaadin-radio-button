@@ -66,17 +66,17 @@ describe('radio-group', () => {
     });
   });
 
-  describe('readonly property', () => {
-    it('should disable unchecked buttons when readonly', async () => {
-      group.readonly = true;
+  describe('readOnly property', () => {
+    it('should disable unchecked buttons when readOnly', async () => {
+      group.readOnly = true;
       await group.updateComplete;
       buttons.forEach(button => {
         expect(button.disabled).to.be.true;
       });
     });
 
-    it('should enable button when value is set while readonly', async () => {
-      group.readonly = true;
+    it('should enable button when value is set while readOnly', async () => {
+      group.readOnly = true;
       await group.updateComplete;
       group.value = '2';
       await group.updateComplete;
@@ -85,21 +85,21 @@ describe('radio-group', () => {
       expect(buttons[2].disabled).to.be.true;
     });
 
-    it('should enable all buttons readonly is set back to false', async () => {
-      group.readonly = true;
+    it('should enable all buttons readOnly is set back to false', async () => {
+      group.readOnly = true;
       await group.updateComplete;
-      group.readonly = false;
+      group.readOnly = false;
       await group.updateComplete;
       buttons.forEach(button => {
         expect(button.disabled).to.be.false;
       });
     });
 
-    it('should reflect to attribute', async () => {
-      group.readonly = true;
+    it('should reflect to lowercase readonly attribute', async () => {
+      group.readOnly = true;
       await group.updateComplete;
       expect(group.hasAttribute('readonly')).to.be.true;
-      group.readonly = false;
+      group.readOnly = false;
       await group.updateComplete;
       expect(group.hasAttribute('readonly')).to.be.false;
     });
@@ -368,12 +368,12 @@ describe('radio-group', () => {
         expect(group.value).to.equal('2');
       });
 
-      it('should not check radio button with keyboard if readonly', async () => {
+      it('should not check radio button with keyboard if readOnly', async () => {
         buttons[1].checked = true;
         await buttons[1].updateComplete;
         await group.updateComplete;
         buttons[1].focus();
-        group.readonly = true;
+        group.readOnly = true;
         await group.updateComplete;
         await buttons[1].updateComplete;
         arrowDown(buttons[1]);

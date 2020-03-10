@@ -6,6 +6,7 @@ import { CheckedStateMixin, CheckedStateInterface } from '@vaadin/checked-state-
 import { ControlStateMixin, ControlStateInterface } from '@vaadin/control-state-mixin/control-state-mixin.js';
 import { DisabledStateMixin, DisabledStateInterface } from '@vaadin/disabled-state-mixin/disabled-state-mixin.js';
 import { FocusVisibleMixin, FocusVisibleInterface } from '@vaadin/focus-visible-mixin/focus-visible-mixin.js';
+import { KeyboardMixin } from '@vaadin/keyboard-mixin/keyboard-mixin.js';
 import { KeyboardClass } from '@vaadin/keyboard-mixin/keyboard-class.js';
 import { SlottedLabelMixin } from '@vaadin/slotted-label-mixin/slotted-label-mixin.js';
 import { RadioButtonMixinClass } from './vaadin-radio-button-mixin-class';
@@ -25,7 +26,7 @@ export type RadioButton = RadioButtonInterface &
 
 export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T & Constructor<RadioButton> => {
   class RadioButton extends SlottedLabelMixin(
-    CheckedStateMixin(ControlStateMixin(FocusVisibleMixin(ActiveStateMixin(DisabledStateMixin(base)))))
+    CheckedStateMixin(KeyboardMixin(ControlStateMixin(FocusVisibleMixin(ActiveStateMixin(DisabledStateMixin(base))))))
   ) {
     /**
      * Used for mixin detection because `instanceof` does not work with mixins.
