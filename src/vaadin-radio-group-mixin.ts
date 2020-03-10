@@ -286,7 +286,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       this.readonly && this._updateDisableButtons();
       radio && this._setTabIndex && this._setTabIndex(radio);
 
-      if (fireChangeEvent && this._inputChange) {
+      if (fireChangeEvent) {
         this._inputChange = undefined;
 
         // Delay change event until update complete, so it fires consistently
