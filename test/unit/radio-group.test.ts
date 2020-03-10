@@ -1,6 +1,6 @@
 import { expect, fixture, nextFrame, html } from '@vaadin/vaadin-component-dev-dependencies/testing.js';
 import { arrowDown, arrowLeft, arrowRight, arrowUp } from '@vaadin/vaadin-component-dev-dependencies/keys.js';
-import { focusin } from '@vaadin/test-helpers';
+import { focusin } from '@vaadin/vaadin-component-dev-dependencies/events.js';
 import { VaadinRadioButton } from '../../src/vaadin-radio-button';
 import { VaadinRadioGroup } from '../../src/vaadin-radio-group';
 

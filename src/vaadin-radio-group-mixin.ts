@@ -236,7 +236,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
           radio.addEventListener('checked-changed', this._boundCheckedChanged);
 
           if (this.disabled) {
-            radio.disabled = true; // eslint-disable-line no-param-reassign
+            radio.disabled = true;
           }
           if (radio.checked) {
             this._selectButton(radio);
@@ -286,10 +286,10 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
           if (fireChangeEvent) {
             button.click();
           } else {
-            button.checked = true; // eslint-disable-line no-param-reassign
+            button.checked = true;
           }
         } else {
-          button.checked = false; // eslint-disable-line no-param-reassign
+          button.checked = false;
         }
       });
 
