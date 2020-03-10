@@ -1,6 +1,6 @@
 import { expect, fixture, html } from '@vaadin/vaadin-component-dev-dependencies/testing.js';
 import { spaceKeyDown, spaceKeyUp } from '@vaadin/vaadin-component-dev-dependencies/keys.js';
-import { mousedown, mouseup, touchstart, touchend } from '@vaadin/test-helpers';
+import { mousedown, mouseup, touchstart, touchend } from '@vaadin/vaadin-component-dev-dependencies/events.js';
 import { VaadinRadioButton } from '../../src/vaadin-radio-button';
 
 const { sinon } = window;
