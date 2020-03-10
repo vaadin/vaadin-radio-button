@@ -141,6 +141,55 @@ describe('radio-button', () => {
     });
   });
 
+  describe('click method', () => {
+    let spy: sinon.SinonSpy;
+
+    beforeEach(() => {
+      spy = sinon.spy(radio, 'click');
+    });
+
+    it('should be called on mouseup', async () => {
+      mousedown(radio);
+      mouseup(radio);
+      await radio.updateComplete;
+      expect(spy).to.be.calledOnce;
+    });
+
+    it('should not be called on mouseup when checked', async () => {
+      radio.checked = true;
+      await radio.updateComplete;
+      mousedown(radio);
+      mouseup(radio);
+      await radio.updateComplete;
+      expect(spy).to.not.be.called;
+    });
+
+    it('should not be called on mouseup when disabled', async () => {
+      radio.disabled = true;
+      await radio.updateComplete;
+      mousedown(radio);
+      mouseup(radio);
+      await radio.updateComplete;
+      expect(spy).to.not.be.called;
+    });
+
+    it('should be called on space keyup', async () => {
+      spaceKeyDown(radio);
+      spaceKeyUp(radio);
+      await radio.updateComplete;
+      expect(spy).to.be.calledOnce;
+    });
+
+    it('should not be called on space keyup when disabled', async () => {
+      radio.disabled = true;
+      await radio.updateComplete;
+      spaceKeyDown(radio);
+      spaceKeyUp(radio);
+      await radio.updateComplete;
+      expect(spy).to.not.be.called;
+    });
+  });
+
   describe('change event', () => {
     let spy: sinon.SinonSpy;
 
