@@ -18,9 +18,9 @@ export interface RadioGroupInterface {
 
   label: string | null | undefined;
 
-  invalid?: boolean;
+  invalid: boolean;
 
-  required?: boolean;
+  required: boolean;
 
   readOnly?: boolean;
 
@@ -73,7 +73,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
      * When true, the radio group value is invalid.
      */
     @property({ type: Boolean, reflect: true })
-    invalid?: boolean = false;
+    invalid = false;
 
     /**
      * Radio group is aligned vertically by default. Set to "horizontal" to change this.
@@ -85,7 +85,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
      * When true, the radio group must have a value set by the user.
      */
     @property({ type: Boolean, reflect: true })
-    required?: boolean = false;
+    required = false;
 
     /**
      * When true, the user cannot modify the value of the radio group.
