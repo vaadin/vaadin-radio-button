@@ -176,6 +176,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
         this._valueChanged(this.value, props.get('value'));
 
         this.dispatchEvent(
+          // TODO: add and export TS typings for a custom event
+          // https://github.com/vaadin/component-mixins/issues/59
           new CustomEvent('value-changed', {
             detail: { value: this.value }
           })
@@ -183,6 +185,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
       }
 
       if (props.has('invalid')) {
+        // TODO: add and export TS typings for a custom event
+        // https://github.com/vaadin/component-mixins/issues/59
         this.dispatchEvent(
           new CustomEvent('invalid-changed', {
             detail: { value: this.invalid }
