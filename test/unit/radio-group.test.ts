@@ -488,8 +488,9 @@ describe('radio-group', () => {
 
     it('should fire when selecting a radio button on click', async () => {
       buttons[1].click();
+      await buttons[1].updateComplete;
       await group.updateComplete;
-      expect(spy.callCount).to.equal(1);
+      expect(spy).to.be.calledOnce;
       const event = spy.getCall(0).args[0];
       expect(event).to.be.instanceof(Event);
     });
@@ -497,28 +498,55 @@ describe('radio-group', () => {
     it('should fire when selecting a radio button from keyboard', async () => {
       buttons[1].focus();
       buttons[1].checked = true;
+      await buttons[1].updateComplete;
       await group.updateComplete;
       arrowDown(buttons[1]);
       await group.updateComplete;
-      expect(spy.callCount).to.equal(1);
+      expect(spy).to.be.calledOnce;
       const event = spy.getCall(0).args[0];
       expect(event).to.be.instanceof(Event);
     });
 
     it('should bubble', async () => {
       buttons[1].click();
+      await buttons[1].updateComplete;
       await group.updateComplete;
-      expect(spy.callCount).to.equal(1);
+      expect(spy).to.be.calledOnce;
       const event = spy.getCall(0).args[0];
       expect(event).to.have.property('bubbles', true);
     });
 
     it('should not be composed', async () => {
       buttons[1].click();
+      await buttons[1].updateComplete;
       await group.updateComplete;
-      expect(spy.callCount).to.equal(1);
+      expect(spy).to.be.calledOnce;
       const event = spy.getCall(0).args[0];
       expect(event).to.have.property('composed', false);
+    });
+
+    it('should be called after checked-changed on click', async () => {
+      const buttonSpy = sinon.spy();
+      buttons[1].addEventListener('checked-changed', buttonSpy);
+      buttons[1].click();
+      await buttons[1].updateComplete;
+      await group.updateComplete;
+      expect(buttonSpy).to.be.calledOnce;
+      expect(spy).to.be.calledAfter(buttonSpy);
+    });
+
+    it('should be called after checked-changed on keydown', async () => {
+      buttons[0].focus();
+      buttons[0].checked = true;
+      await buttons[0].updateComplete;
+      await group.updateComplete;
+      const buttonSpy = sinon.spy();
+      buttons[1].addEventListener('checked-changed', buttonSpy);
+      arrowDown(buttons[0]);
+      await buttons[1].updateComplete;
+      await group.updateComplete;
+      expect(buttonSpy).to.be.calledOnce;
+      expect(spy).to.be.calledAfter(buttonSpy);
     });
 
     it('should not fire on programmatic value change', async () => {
