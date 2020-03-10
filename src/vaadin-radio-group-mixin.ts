@@ -22,7 +22,7 @@ export interface RadioGroupInterface {
 
   required: boolean;
 
-  readOnly?: boolean;
+  readOnly: boolean;
 
   errorMessage: string | null | undefined;
 
@@ -91,7 +91,7 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
      * When true, the user cannot modify the value of the radio group.
      */
     @property({ type: Boolean, reflect: true, attribute: 'readonly' })
-    readOnly?: boolean;
+    readOnly = false;
 
     /**
      * Error to show when the radio group value is invalid.
