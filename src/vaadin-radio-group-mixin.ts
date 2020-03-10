@@ -258,6 +258,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
     }
 
     private _selectButton(radio?: RadioButton, fireChangeEvent?: boolean) {
+      // When selecting radio button from keyboard, we set "checked" on it,
+      // and this method is called again. In that case, stop and do nothing
       if (this._checkedButton === radio) {
         return;
       }
@@ -286,12 +288,17 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
 
       if (fireChangeEvent && this._inputChange) {
         this._inputChange = undefined;
-        this.dispatchEvent(
-          new Event('change', {
-            bubbles: true,
-            cancelable: false
-          })
-        );
+
+        // Delay change event until update complete, so it fires consistently
+        // after checked-changed event on radio button for keyboard and mouse
+        this.updateComplete.then(() => {
+          this.dispatchEvent(
+            new Event('change', {
+              bubbles: true,
+              cancelable: false
+            })
+          );
+        });
       }
     }
 
