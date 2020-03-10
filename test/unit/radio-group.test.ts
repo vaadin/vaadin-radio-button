@@ -67,6 +67,10 @@ describe('radio-group', () => {
   });
 
   describe('readOnly property', () => {
+    it('should be set to false by default', () => {
+      expect(group.readOnly).to.be.false;
+    });
+
     it('should disable unchecked buttons when readOnly', async () => {
       group.readOnly = true;
       await group.updateComplete;
