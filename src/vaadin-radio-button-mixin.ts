@@ -62,8 +62,6 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
       super.firstUpdated(props);
 
       this.setAttribute('role', 'radio');
-
-      this.addEventListener('mouseup', event => this._onMouseUp(event));
     }
 
     /**
@@ -119,7 +117,12 @@ export const RadioButtonMixin = <T extends Constructor<LitElement>>(base: T): T 
       }
     }
 
-    protected _onMouseUp(_event: MouseEvent) {
+    /**
+     * @see ActiveStateClass
+     */
+    protected _onMouseUp(event: MouseEvent) {
+      super._onMouseUp && super._onMouseUp(event);
+
       if (!this.checked && !this.disabled) {
         this.click();
       }
