@@ -575,6 +575,10 @@ describe('radio-group', () => {
   });
 
   describe('validation', () => {
+    it('should set required property to false by default', () => {
+      expect(group.required).to.be.false;
+    });
+
     it('should pass validation by default when group is not required', () => {
       expect(group.checkValidity()).to.be.true;
       expect(group.invalid).to.be.false;
