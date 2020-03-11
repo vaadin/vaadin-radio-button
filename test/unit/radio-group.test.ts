@@ -678,13 +678,13 @@ describe('radio-group', () => {
       expect(error.getAttribute('aria-hidden')).to.be.equal('false');
     });
 
-    it('should now show error message by default', async () => {
+    it('should not show error message by default', async () => {
       group.errorMessage = 'Bad input!';
       await group.updateComplete;
       expect(error.hasAttribute('hidden')).to.be.true;
     });
 
-    it('should now show error message when it is empty', async () => {
+    it('should not show error message when it is empty', async () => {
       group.invalid = true;
       await group.updateComplete;
       expect(error.hasAttribute('hidden')).to.be.true;
