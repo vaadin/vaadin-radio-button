@@ -684,6 +684,12 @@ describe('radio-group', () => {
       expect(error.hasAttribute('hidden')).to.be.true;
     });
 
+    it('should now show error message when it is empty', async () => {
+      group.invalid = true;
+      await group.updateComplete;
+      expect(error.hasAttribute('hidden')).to.be.true;
+    });
+
     it('should show error message when group is invalid', async () => {
       group.errorMessage = 'Bad input!';
       await group.updateComplete;

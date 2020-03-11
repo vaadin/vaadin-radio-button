@@ -108,6 +108,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
     private _inputChange?: boolean;
 
     protected render() {
+      const hasError = this.errorMessage && this.invalid;
+
       return html`
         <div class="vaadin-group-field-container">
           <label part="label">${this.label}</label>
@@ -120,8 +122,8 @@ export const RadioGroupMixin = <T extends Constructor<LitElement & KeyboardDirec
             id="${this._errorId}"
             part="error-message"
             aria-live="assertive"
-            aria-hidden="${this.errorMessage && this.invalid ? 'false' : 'true'}"
-            ?hidden="${!this.invalid}"
+            aria-hidden="${hasError ? 'false' : 'true'}"
+            ?hidden="${!hasError}"
           >
             ${this.errorMessage}
           </div>
