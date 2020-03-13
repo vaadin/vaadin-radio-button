@@ -2,13 +2,51 @@
 
 <html>
   <head>
-    <title>vaadin-radio-button</title>
+    <title>&lt;vaadin-radio-button&gt;</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../iron-component-page/iron-component-page.html">
+    <style>
+      body {
+        margin: 0;
+      }
+
+      api-viewer {
+        margin: 1rem auto 0;
+      }
+
+      @media(max-width: 799px) {
+        api-viewer {
+          margin: 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    <iron-component-page src="vaadin-radio-button.html"></iron-component-page>
+    <api-viewer src="custom-elements.json" exclude-knobs="autofocus,items,tabIndex">
+      <template data-element="vaadin-radio-group" data-target="slot">
+        <vaadin-radio-button value="1">Radio button 1</vaadin-radio-button>
+        <vaadin-radio-button value="2">Radio button 2</vaadin-radio-button>
+        <vaadin-radio-button value="3">Radio button 3</vaadin-radio-button>
+      </template>
+      <template data-element="vaadin-radio-button" data-target="knob" data-attr="dir" data-type="select">
+        <select>
+          <option value=""></option>
+          <option value="ltr"></option>
+          <option value="rtl"></option>
+        </select>
+      </template>
+      <template data-element="vaadin-radio-group" data-target="knob" data-attr="dir" data-type="select">
+        <select>
+          <option value=""></option>
+          <option value="ltr"></option>
+          <option value="rtl"></option>
+        </select>
+      </template>
+    </api-viewer>
+
+    <script type="module" src="./vaadin-radio-group.ts"></script>
+    <script type="module">
+      import 'api-viewer-element';
+    </script>
   </body>
 </html>
