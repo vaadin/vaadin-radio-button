@@ -27,7 +27,7 @@ export class VaadinRadioGroup extends RadioGroupMixin(RadioGroupBase) {
   static is = 'vaadin-radio-group';
 
   static get version() {
-    return '1.2.3';
+    return '2.0.0-alpha1';
   }
 }
 

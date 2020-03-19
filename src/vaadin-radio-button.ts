@@ -24,7 +24,7 @@ export class VaadinRadioButton extends RadioButtonMixin(RadioButtonBase) {
   static is = 'vaadin-radio-button';
 
   static get version() {
-    return '1.2.3';
+    return '2.0.0-alpha1';
   }
 }
 
