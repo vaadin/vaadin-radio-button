@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <title>Radio group wrapping test</title>
+  <script>
+    window.polymerSkipLoadingFontRoboto = true;
+  </script>
 </head>
 
 <body>
 
-  <div id="wrapping-tests" style="width: 320px; padding: 6px;">
+  <div id="radio-tests" style="width: 320px; padding: 6px;">
     <vaadin-radio-group label="Choose a number" orientation="horizontal">
       <vaadin-radio-button value="1">Radio button 1</vaadin-radio-button>
       <vaadin-radio-button value="2">Radio button 2</vaadin-radio-button>
@@ -28,7 +31,7 @@
       await group.updateComplete;
 
       window.requestAnimationFrame(() => {
-        window.webComponentsAreReady = true;
+        document.getElementById('radio-tests').dataset.ready = true;
       });
     })();
   </script>

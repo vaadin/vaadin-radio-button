@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <title>Radio-group tests</title>
+  <script>
+    window.polymerSkipLoadingFontRoboto = true;
+  </script>
 </head>
 
 <body>
 
-  <div id="default-tests" style="padding: 6px;">
+  <div id="radio-tests" style="padding: 6px;">
     <vaadin-radio-group>
       <vaadin-radio-button checked>1</vaadin-radio-button>
       <vaadin-radio-button>2</vaadin-radio-button>
@@ -59,21 +62,21 @@
   <script type="module">
     import { tabKeyDown, focusin } from '@vaadin/test-helpers';
 
-    window.focusRadio = () => {
-      tabKeyDown(document.body);
-      focusin(document.getElementById('radio'));
-    }
-
     (async() => {
       const groups = Array.from(document.querySelectorAll('vaadin-radio-group'));
       const theme = window.location.search.replace(/.*theme=(\w+).*/, '$1') || 'lumo';
+      const dir = window.location.search.replace(/.*dir=(\w+).*/, '$1') || 'ltr';
+      document.documentElement.setAttribute('dir', dir);
 
       await import('../../theme/' + theme + '/vaadin-radio-group.js');
 
       await Promise.all(groups.map(el => el.updateComplete));
 
       window.requestAnimationFrame(() => {
-        window.webComponentsAreReady = true;
+        tabKeyDown(document.body);
+        focusin(document.getElementById('radio'));
+
+        document.getElementById('radio-tests').dataset.ready = true;
       });
     })();
   </script>
