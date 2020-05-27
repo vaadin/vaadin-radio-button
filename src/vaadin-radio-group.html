@@ -98,7 +98,7 @@ This program is available under Apache License Version 2.0, available at https:/
        * `has-label` | Set when the element has a label | :host
        * `has-value` | Set when the element has a value | :host
        * `has-helper` | Set when the element has helper text or slot | :host
-       * `has-error-message` | Set when the element has an error message | :host
+       * `has-error-message` | Set when the element has an error message, regardless if the field is valid or not | :host
        * `focused` | Set when the element contains focus | :host
        *
        * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
@@ -243,7 +243,7 @@ This program is available under Apache License Version 2.0, available at https:/
               }
             });
 
-            this._onHelperSlotChange();
+            this._setOrToggleHasHelperAttribute();
           });
 
           if (this._radioButtons.length) {
@@ -529,18 +529,14 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         /** @private */
-        _onHelperSlotChange() {
+        _setOrToggleHasHelperAttribute() {
           const slottedNodes = this.shadowRoot.querySelector(`[name="helper"]`).assignedNodes();
           // Only has slotted helper if not a text node
           // Text nodes are added by the helperText prop and not the helper slot
           // The filter is added due to shady DOM triggering this slotchange event on helperText prop change
           this._hasSlottedHelper = slottedNodes.filter(node => node.nodeType !== 3).length;
 
-          if (this._hasSlottedHelper) {
-            this.setAttribute('has-helper', 'slotted');
-          } else if (this.helperText === '' || this.helperText === null) {
-            this.removeAttribute('has-helper');
-          }
+          this._setOrToggleAttribute('has-helper', this._hasSlottedHelper ? 'slotted' : this.helperText === 0 || !!this.helperText);
         }
 
         /** @private */
