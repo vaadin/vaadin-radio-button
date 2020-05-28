@@ -472,7 +472,7 @@
           expect(vaadinRadioButtonGroup.hasAttribute('has-helper')).to.be.true;
         });
 
-        it('text-field with slotted helper updates has-helper attribute', function() {
+        it('field with slotted helper updates has-helper attribute', function() {
           const radioButtonGroupWithSlottedHelper = fixture('default-with-slotted-helper');
           radioButtonGroupWithSlottedHelper._observer.flush();
           expect(radioButtonGroupWithSlottedHelper.hasAttribute('has-helper')).to.be.true;
@@ -619,7 +619,7 @@
 
           expect(spy).to.not.be.called;
         });
-    
+
         it('should value on the vaadin-radio-group is updated at the time when change event is fired after click selection', done => {
           // Mouse event
           vaadinRadioButtonGroup.addEventListener('change', e => {
