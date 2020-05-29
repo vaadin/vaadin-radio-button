@@ -467,11 +467,6 @@
           expect(vaadinRadioButtonGroup.hasAttribute('has-helper')).to.be.false;
         });
 
-        it('setting number helper updates has-helper attribute', function() {
-          vaadinRadioButtonGroup.helperText = 0;
-          expect(vaadinRadioButtonGroup.hasAttribute('has-helper')).to.be.true;
-        });
-
         it('field with slotted helper updates has-helper attribute', function() {
           const radioButtonGroupWithSlottedHelper = fixture('default-with-slotted-helper');
           radioButtonGroupWithSlottedHelper._observer.flush();
