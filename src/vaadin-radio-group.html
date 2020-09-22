@@ -206,7 +206,7 @@ This program is available under Apache License Version 2.0, available at https:/
               if (this.value !== undefined && this.value == button.value) {
                 this._checkedButton = undefined;
                 this._changeSelectedButton(button, false);
-              } else if(button == this._checkedButton) {
+              } else if (button.checked) {
                 this._changeSelectedButton(button);
               }
             });
