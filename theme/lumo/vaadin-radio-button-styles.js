@@ -9,7 +9,6 @@ const $_documentContainer = html`<dom-module id="lumo-radio-button" theme-for="v
         -webkit-tap-highlight-color: transparent;
         -webkit-user-select: none;
         -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
         cursor: default;
         outline: none;
@@ -30,7 +29,6 @@ const $_documentContainer = html`<dom-module id="lumo-radio-button" theme-for="v
         pointer-events: none;
         will-change: transform;
         line-height: 1.2;
-        transform: translateZ(0); /* Workaround IE11 jumpiness */
       }
 
       /* Used for activation "halo" */
@@ -111,12 +109,6 @@ const $_documentContainer = html`<dom-module id="lumo-radio-button" theme-for="v
 
       :host([disabled]) [part="radio"]::after {
         border-color: var(--lumo-contrast-30pct);
-      }
-
-      /* IE11 only */
-      ::-ms-backdrop,
-      [part="radio"] {
-        line-height: 1;
       }
 
       /* RTL specific styles */

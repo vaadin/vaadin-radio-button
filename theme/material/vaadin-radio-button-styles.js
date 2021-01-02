@@ -8,7 +8,6 @@ const $_documentContainer = html`<dom-module id="material-radio-button" theme-fo
         display: inline-block;
         -webkit-user-select: none;
         -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
         outline: none;
         -webkit-tap-highlight-color: transparent;
@@ -37,12 +36,6 @@ const $_documentContainer = html`<dom-module id="material-radio-button" theme-fo
         pointer-events: none;
         will-change: transform;
         line-height: 1.2;
-      }
-
-      /* IE11 only */
-      ::-ms-backdrop,
-      [part="radio"] {
-        line-height: 1;
       }
 
       /* Used for activation "halo" */
