@@ -1,5 +1,3 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
@@ -7,8 +5,6 @@ import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin
 import {ControlStateMixin} from '@vaadin/vaadin-control-state-mixin/vaadin-control-state-mixin.js';
 
 import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 /**
  * `<vaadin-radio-button>` is a Web Component for radio buttons.
@@ -43,7 +39,7 @@ declare class RadioButtonElement extends
   ControlStateMixin(
   ThemableMixin(
   GestureEventListeners(
-  PolymerElement)))) {
+  HTMLElement)))) {
   readonly focusElement: HTMLInputElement;
 
   /**
@@ -60,8 +56,6 @@ declare class RadioButtonElement extends
    * The value for this element.
    */
   value: string;
-  ready(): void;
-  attributeChangedCallback(prop: string, oldVal: string|null, newVal: string|null): void;
 
   /**
    * Toggles the radio button, so that the native `change` event

@@ -1,14 +1,8 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {FlattenedNodesObserver} from '@polymer/polymer/lib/utils/flattened-nodes-observer.js';
-
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 import {DirMixin} from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
 
 import {RadioButtonElement} from './vaadin-radio-button.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 /**
  * `<vaadin-radio-group>` is a Web Component for grouping vaadin-radio-buttons.
@@ -48,7 +42,7 @@ import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 declare class RadioGroupElement extends
   ThemableMixin(
   DirMixin(
-  PolymerElement)) {
+  HTMLElement)) {
 
   /**
    * The current disabled state of the radio group. True if group and all internal radio buttons are disabled.
@@ -91,14 +85,21 @@ declare class RadioGroupElement extends
    * Value of the radio group.
    */
   value: string|null|undefined;
-  ready(): void;
+
   _setFocused(focused: boolean): void;
+
   _selectIncButton(next: boolean, checkedRadioButton: RadioButtonElement): void;
+
   _selectButton(element: RadioButtonElement, setFocusRing?: boolean): void;
+
   _containsFocus(): boolean;
+
   _hasEnabledButtons(): boolean;
+
   _selectNextButton(element: RadioButtonElement): void;
+
   _selectPreviousButton(element: RadioButtonElement): void;
+
   _changeSelectedButton(button: RadioButtonElement|null, fireChangeEvent?: boolean): void;
 
   /**
@@ -113,7 +114,9 @@ declare class RadioGroupElement extends
    * Returns true if the current input value satisfies all constraints (if any)
    */
   checkValidity(): boolean;
+
   _setFocusable(idx: number): void;
+
   _getHelperTextAriaHidden(helperText: any, helperTextId: any, hasSlottedHelper: any): any;
 }
 
