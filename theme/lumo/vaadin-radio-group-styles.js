@@ -1,7 +1,8 @@
-<link rel="import" href="../../../vaadin-lumo-styles/color.html">
-<link rel="import" href="../../../vaadin-lumo-styles/mixins/required-field.html">
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/mixins/required-field.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<dom-module id="lumo-radio-group" theme-for="vaadin-radio-group">
+const $_documentContainer = html`<dom-module id="lumo-radio-group" theme-for="vaadin-radio-group">
   <template>
     <style include="lumo-required-field">
       :host {
@@ -93,4 +94,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

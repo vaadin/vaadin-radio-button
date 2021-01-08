@@ -1,7 +1,8 @@
-<link rel="import" href="../../../vaadin-lumo-styles/color.html">
-<link rel="import" href="../../../vaadin-lumo-styles/style.html">
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/style.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<dom-module id="lumo-radio-button" theme-for="vaadin-radio-button">
+const $_documentContainer = html`<dom-module id="lumo-radio-button" theme-for="vaadin-radio-button">
   <template>
     <style>
       :host {
@@ -35,7 +36,7 @@
       /* Used for activation "halo" */
       [part="radio"]::before {
         /* Needed to align the radio-button nicely on the baseline */
-        content: "\2003";
+        content: "\\2003";
         color: transparent;
         display: inline-block;
         width: 100%;
@@ -125,4 +126,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
