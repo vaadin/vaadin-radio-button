@@ -1,10 +1,10 @@
-import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 
-import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
-import {ControlStateMixin} from '@vaadin/vaadin-control-state-mixin/vaadin-control-state-mixin.js';
+import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-control-state-mixin.js';
 
-import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
+import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 /**
  * `<vaadin-radio-button>` is a Web Component for radio buttons.
@@ -34,18 +34,15 @@ import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  */
-declare class RadioButtonElement extends
-  ElementMixin(
-  ControlStateMixin(
-  ThemableMixin(
-  GestureEventListeners(
-  HTMLElement)))) {
+declare class RadioButtonElement extends ElementMixin(
+  ControlStateMixin(ThemableMixin(GestureEventListeners(HTMLElement)))
+) {
   readonly focusElement: HTMLInputElement;
 
   /**
    * Name of the element.
    */
-  name: string|null|undefined;
+  name: string | null | undefined;
 
   /**
    * True if the radio button is checked.
@@ -65,10 +62,9 @@ declare class RadioButtonElement extends
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "vaadin-radio-button": RadioButtonElement;
+    'vaadin-radio-button': RadioButtonElement;
   }
 }
 
-export {RadioButtonElement};
+export { RadioButtonElement };

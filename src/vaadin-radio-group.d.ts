@@ -1,8 +1,8 @@
-import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
-import {DirMixin} from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
+import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
 
-import {RadioButtonElement} from './vaadin-radio-button.js';
+import { RadioButtonElement } from './vaadin-radio-button.js';
 
 /**
  * `<vaadin-radio-group>` is a Web Component for grouping vaadin-radio-buttons.
@@ -39,20 +39,16 @@ import {RadioButtonElement} from './vaadin-radio-button.js';
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  */
-declare class RadioGroupElement extends
-  ThemableMixin(
-  DirMixin(
-  HTMLElement)) {
-
+declare class RadioGroupElement extends ThemableMixin(DirMixin(HTMLElement)) {
   /**
    * The current disabled state of the radio group. True if group and all internal radio buttons are disabled.
    */
-  disabled: boolean|null|undefined;
+  disabled: boolean | null | undefined;
 
   /**
    * This attribute indicates that the user cannot modify the value of the control.
    */
-  readonly: boolean|null|undefined;
+  readonly: boolean | null | undefined;
 
   /**
    * This property is set to true when the value is invalid.
@@ -62,7 +58,7 @@ declare class RadioGroupElement extends
   /**
    * Specifies that the user must fill in a value.
    */
-  required: boolean|null|undefined;
+  required: boolean | null | undefined;
 
   /**
    * Error to show when the input value is invalid.
@@ -79,12 +75,12 @@ declare class RadioGroupElement extends
    * String used for the helper text.
    * @attr {string} helper-text
    */
-  helperText: string|null;
+  helperText: string | null;
 
   /**
    * Value of the radio group.
    */
-  value: string|null|undefined;
+  value: string | null | undefined;
 
   _setFocused(focused: boolean): void;
 
@@ -100,7 +96,7 @@ declare class RadioGroupElement extends
 
   _selectPreviousButton(element: RadioButtonElement): void;
 
-  _changeSelectedButton(button: RadioButtonElement|null, fireChangeEvent?: boolean): void;
+  _changeSelectedButton(button: RadioButtonElement | null, fireChangeEvent?: boolean): void;
 
   /**
    * Returns true if `value` is valid.
@@ -121,10 +117,9 @@ declare class RadioGroupElement extends
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "vaadin-radio-group": RadioGroupElement;
+    'vaadin-radio-group': RadioGroupElement;
   }
 }
 
-export {RadioGroupElement};
+export { RadioGroupElement };

@@ -44,57 +44,60 @@ import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.
  * @mixes GestureEventListeners
  * @element vaadin-radio-button
  */
-class RadioButtonElement extends
-  ElementMixin(
-    ControlStateMixin(
-      ThemableMixin(
-        GestureEventListeners(PolymerElement)))) {
+class RadioButtonElement extends ElementMixin(ControlStateMixin(ThemableMixin(GestureEventListeners(PolymerElement)))) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: inline-block;
-      }
+      <style>
+        :host {
+          display: inline-block;
+        }
 
-      label {
-        display: inline-flex;
-        align-items: baseline;
-        outline: none;
-      }
+        label {
+          display: inline-flex;
+          align-items: baseline;
+          outline: none;
+        }
 
-      [part="radio"] {
-        position: relative;
-        display: inline-block;
-        flex: none;
-      }
+        [part='radio'] {
+          position: relative;
+          display: inline-block;
+          flex: none;
+        }
 
-      input[type="radio"] {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: inherit;
-        margin: 0;
-      }
+        input[type='radio'] {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: inherit;
+          margin: 0;
+        }
 
-      :host([disabled]) {
-        -webkit-tap-highlight-color: transparent;
-      }
-    </style>
+        :host([disabled]) {
+          -webkit-tap-highlight-color: transparent;
+        }
+      </style>
 
-    <label>
-      <span part="radio">
-        <input type="radio" checked="[[checked]]" disabled\$="[[disabled]]" role="presentation" on-change="_onChange" tabindex="-1">
-      </span>
+      <label>
+        <span part="radio">
+          <input
+            type="radio"
+            checked="[[checked]]"
+            disabled$="[[disabled]]"
+            role="presentation"
+            on-change="_onChange"
+            tabindex="-1"
+          />
+        </span>
 
-      <span part="label">
-        <slot></slot>
-      </span>
-    </label>
-`;
+        <span part="label">
+          <slot></slot>
+        </span>
+      </label>
+    `;
   }
 
   static get is() {
@@ -156,7 +159,9 @@ class RadioButtonElement extends
       this.name = attrName;
     }
 
-    this.shadowRoot.querySelector('[part~="label"]').querySelector('slot')
+    this.shadowRoot
+      .querySelector('[part~="label"]')
+      .querySelector('slot')
       .addEventListener('slotchange', this._updateLabelAttribute.bind(this));
 
     this._updateLabelAttribute();
@@ -176,10 +181,10 @@ class RadioButtonElement extends
   /** @private */
   _isAssignedNodesEmpty(nodes) {
     // The assigned nodes considered to be empty if there is no slotted content or only one empty text node
-    return nodes.length === 0 ||
-        (nodes.length == 1
-        && nodes[0].nodeType == Node.TEXT_NODE
-        && nodes[0].textContent.trim() === '');
+    return (
+      nodes.length === 0 ||
+      (nodes.length == 1 && nodes[0].nodeType == Node.TEXT_NODE && nodes[0].textContent.trim() === '')
+    );
   }
 
   /** @private */
@@ -189,13 +194,13 @@ class RadioButtonElement extends
 
   /** @private */
   _addListeners() {
-    this._addEventListenerToNode(this, 'down', (e) => {
+    this._addEventListenerToNode(this, 'down', () => {
       if (!this.disabled) {
         this.setAttribute('active', '');
       }
     });
 
-    this._addEventListenerToNode(this, 'up', (e) => {
+    this._addEventListenerToNode(this, 'up', () => {
       this.removeAttribute('active');
 
       if (!this.checked && !this.disabled) {
@@ -207,14 +212,14 @@ class RadioButtonElement extends
       }
     });
 
-    this.addEventListener('keydown', e => {
+    this.addEventListener('keydown', (e) => {
       if (!this.disabled && e.keyCode === 32) {
         e.preventDefault();
         this.setAttribute('active', '');
       }
     });
 
-    this.addEventListener('keyup', e => {
+    this.addEventListener('keyup', (e) => {
       if (!this.disabled && e.keyCode === 32) {
         e.preventDefault();
         this.click();
@@ -256,7 +261,7 @@ class RadioButtonElement extends
         sourceEvent: e
       },
       bubbles: e.bubbles,
-      cancelable: e.cancelable,
+      cancelable: e.cancelable
     });
     this.dispatchEvent(changeEvent);
   }
@@ -269,6 +274,5 @@ class RadioButtonElement extends
 }
 
 customElements.define(RadioButtonElement.is, RadioButtonElement);
-
 
 export { RadioButtonElement };

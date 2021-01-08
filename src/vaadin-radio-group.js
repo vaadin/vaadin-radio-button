@@ -52,51 +52,63 @@ import { RadioButtonElement } from './vaadin-radio-button.js';
 class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: inline-flex;
+      <style>
+        :host {
+          display: inline-flex;
 
-        /* Prevent horizontal overflow in IE 11 instead of wrapping radios */
-        max-width: 100%;
-      }
+          /* Prevent horizontal overflow in IE 11 instead of wrapping radios */
+          max-width: 100%;
+        }
 
-      :host::before {
-        content: "\\2003";
-        width: 0;
-        display: inline-block;
-      }
+        :host::before {
+          content: '\\2003';
+          width: 0;
+          display: inline-block;
+        }
 
-      :host([hidden]) {
-        display: none !important;
-      }
+        :host([hidden]) {
+          display: none !important;
+        }
 
-      .vaadin-group-field-container {
-        display: flex;
-        flex-direction: column;
+        .vaadin-group-field-container {
+          display: flex;
+          flex-direction: column;
 
-        /* Prevent horizontal overflow in IE 11 instead of wrapping radios */
-        width: 100%;
-      }
+          /* Prevent horizontal overflow in IE 11 instead of wrapping radios */
+          width: 100%;
+        }
 
-      [part="label"]:empty {
-        display: none;
-      }
-    </style>
+        [part='label']:empty {
+          display: none;
+        }
+      </style>
 
-    <div class="vaadin-group-field-container">
-      <label part="label">[[label]]</label>
+      <div class="vaadin-group-field-container">
+        <label part="label">[[label]]</label>
 
-      <div part="group-field">
-        <slot id="slot"></slot>
+        <div part="group-field">
+          <slot id="slot"></slot>
+        </div>
+
+        <div
+          part="helper-text"
+          on-click="focus"
+          id="[[_helperTextId]]"
+          aria-live="assertive"
+          aria-hidden$="[[_getHelperTextAriaHidden(helperText, _helperTextId, _hasSlottedHelper)]]"
+        >
+          <slot name="helper">[[helperText]]</slot>
+        </div>
+
+        <div
+          part="error-message"
+          id="[[_errorId]]"
+          aria-live="assertive"
+          aria-hidden$="[[_getErrorMessageAriaHidden(invalid, errorMessage, _errorId)]]"
+          >[[errorMessage]]</div
+        >
       </div>
-
-      <div part="helper-text" on-click="focus" id="[[_helperTextId]]" aria-live="assertive" aria-hidden\$="[[_getHelperTextAriaHidden(helperText, _helperTextId, _hasSlottedHelper)]]">
-        <slot name="helper">[[helperText]]</slot>
-      </div>
-
-      <div part="error-message" id="[[_errorId]]" aria-live="assertive" aria-hidden\$="[[_getErrorMessageAriaHidden(invalid, errorMessage, _errorId)]]">[[errorMessage]]</div>
-    </div>
-`;
+    `;
   }
 
   static get is() {
@@ -209,25 +221,27 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
     this._addListeners();
 
-    this._observer = new FlattenedNodesObserver(this, info => {
-      const checkedChangedListener = e => {
+    this._observer = new FlattenedNodesObserver(this, (info) => {
+      const checkedChangedListener = (e) => {
         if (e.target.checked) {
           this._changeSelectedButton(e.target);
         }
       };
 
       // reverse() is used to set the last checked radio button value to radio group value
-      this._filterRadioButtons(info.addedNodes).reverse().forEach(button => {
-        button.addEventListener('checked-changed', checkedChangedListener);
-        if (this.disabled) {
-          button.disabled = true;
-        }
-        if (button.checked) {
-          this._changeSelectedButton(button);
-        }
-      });
+      this._filterRadioButtons(info.addedNodes)
+        .reverse()
+        .forEach((button) => {
+          button.addEventListener('checked-changed', checkedChangedListener);
+          if (this.disabled) {
+            button.disabled = true;
+          }
+          if (button.checked) {
+            this._changeSelectedButton(button);
+          }
+        });
 
-      this._filterRadioButtons(info.removedNodes).forEach(button => {
+      this._filterRadioButtons(info.removedNodes).forEach((button) => {
         button.removeEventListener('checked-changed', checkedChangedListener);
         if (button == this._checkedButton) {
           this.value = undefined;
@@ -243,7 +257,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
     this.setAttribute('role', 'radiogroup');
 
-    const uniqueId = RadioGroupElement._uniqueId = 1 + RadioGroupElement._uniqueId || 0;
+    const uniqueId = (RadioGroupElement._uniqueId = 1 + RadioGroupElement._uniqueId || 0);
     this._errorId = `${this.constructor.is}-error-${uniqueId}`;
     this._helperTextId = `${this.constructor.is}-helper-${uniqueId}`;
   }
@@ -267,8 +281,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
   /** @private */
   _filterRadioButtons(nodes) {
-    return Array.from(nodes)
-      .filter(child => child instanceof RadioButtonElement);
+    return Array.from(nodes).filter((child) => child instanceof RadioButtonElement);
   }
 
   /** @private */
@@ -279,7 +292,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
   /** @private */
   _updateDisableButtons() {
-    this._radioButtons.forEach(button => {
+    this._radioButtons.forEach((button) => {
       if (this.disabled) {
         button.disabled = true;
       } else if (this.readonly) {
@@ -299,11 +312,10 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
   /** @private */
   _addListeners() {
-    this.addEventListener('keydown', e => {
+    this.addEventListener('keydown', (e) => {
       // if e.target is vaadin-radio-group then assign to checkedRadioButton currently checked radio button
-      var checkedRadioButton = (e.target == this) ? this._checkedButton : e.target;
-      const horizontalRTL = this.getAttribute('dir') === 'rtl'
-        && this.theme !== 'vertical';
+      var checkedRadioButton = e.target == this ? this._checkedButton : e.target;
+      const horizontalRTL = this.getAttribute('dir') === 'rtl' && this.theme !== 'vertical';
 
       // LEFT, UP - select previous radio button
       if (e.keyCode === 37 || e.keyCode === 38) {
@@ -322,7 +334,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
 
     // Need to check e.composed as a workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1472887
     // otherwise FF runs validation on keyboard focus
-    this.addEventListener('focusout', e => {
+    this.addEventListener('focusout', (e) => {
       e.composed && this.validate();
       this._setFocused(false);
     });
@@ -427,7 +439,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
       this.value = this._checkedButton.value;
     }
 
-    this._radioButtons.forEach(button => {
+    this._radioButtons.forEach((button) => {
       if (button === this._checkedButton) {
         if (fireChangeEvent) {
           button.click();
@@ -453,7 +465,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
     }
 
     if (!this._checkedButton || newV != this._checkedButton.value) {
-      const newCheckedButton = this._radioButtons.filter(button => button.value == newV)[0];
+      const newCheckedButton = this._radioButtons.filter((button) => button.value == newV)[0];
 
       if (newCheckedButton) {
         this._selectButton(newCheckedButton);
@@ -488,7 +500,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
    */
   _setFocusable(idx) {
     const items = this._radioButtons;
-    items.forEach(e => e.tabindex = e === items[idx] ? 0 : -1);
+    items.forEach((e) => (e.tabindex = e === items[idx] ? 0 : -1));
   }
 
   /** @private */
@@ -513,7 +525,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
     }
 
     if (value) {
-      this.setAttribute(name, (typeof value === 'boolean') ? '' : value);
+      this.setAttribute(name, typeof value === 'boolean' ? '' : value);
     } else {
       this.removeAttribute(name);
     }
@@ -525,7 +537,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
     // Only has slotted helper if not a text node
     // Text nodes are added by the helperText prop and not the helper slot
     // The filter is added due to shady DOM triggering this slotchange event on helperText prop change
-    this._hasSlottedHelper = slottedNodes.filter(node => node.nodeType !== 3).length > 0;
+    this._hasSlottedHelper = slottedNodes.filter((node) => node.nodeType !== 3).length > 0;
 
     this._setOrToggleAttribute('has-helper', this._hasSlottedHelper ? 'slotted' : !!this.helperText);
   }
