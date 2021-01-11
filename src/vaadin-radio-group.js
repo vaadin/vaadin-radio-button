@@ -44,6 +44,9 @@ import { RadioButtonElement } from './vaadin-radio-button.js';
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  *
+ * @fires {CustomEvent} invalid-changed - Fired when the `invalid` property changes.
+ * @fires {CustomEvent} value-changed - Fired when the `value` property changes.
+ *
  * @extends HTMLElement
  * @mixes ThemableMixin
  * @mixes DirMixin
