@@ -5,6 +5,24 @@ import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
 import { RadioButtonElement } from './vaadin-radio-button.js';
 
 /**
+ * Fired when the `invalid` property changes.
+ */
+export type RadioGroupInvalidChanged = CustomEvent<{ value: boolean }>;
+
+/**
+ * Fired when the `value` property changes.
+ */
+export type RadioGroupValueChanged = CustomEvent<{ value: string }>;
+
+export interface RadioGroupElementEventMap {
+  'invalid-changed': RadioGroupInvalidChanged;
+
+  'value-changed': RadioGroupValueChanged;
+}
+
+export interface RadioGroupEventMap extends HTMLElementEventMap, RadioGroupElementEventMap {}
+
+/**
  * `<vaadin-radio-group>` is a Web Component for grouping vaadin-radio-buttons.
  *
  * ```html
@@ -114,6 +132,18 @@ declare class RadioGroupElement extends ThemableMixin(DirMixin(HTMLElement)) {
   _setFocusable(idx: number): void;
 
   _getHelperTextAriaHidden(helperText: any, helperTextId: any, hasSlottedHelper: any): any;
+
+  addEventListener<K extends keyof RadioGroupEventMap>(
+    type: K,
+    listener: (this: RadioGroupElement, ev: RadioGroupEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof RadioGroupEventMap>(
+    type: K,
+    listener: (this: RadioGroupElement, ev: RadioGroupEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {

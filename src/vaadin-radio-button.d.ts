@@ -7,6 +7,17 @@ import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-con
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 /**
+ * Fired when the `checked` property changes.
+ */
+export type RadioButtonCheckedChanged = CustomEvent<{ value: boolean }>;
+
+export interface RadioButtonElementEventMap {
+  'checked-changed': RadioButtonCheckedChanged;
+}
+
+export interface RadioButtonEventMap extends HTMLElementEventMap, RadioButtonElementEventMap {}
+
+/**
  * `<vaadin-radio-button>` is a Web Component for radio buttons.
  *
  * ```html
@@ -59,6 +70,18 @@ declare class RadioButtonElement extends ElementMixin(
    * is dispatched. Overrides the standard `HTMLElement.prototype.click`.
    */
   click(): void;
+
+  addEventListener<K extends keyof RadioButtonEventMap>(
+    type: K,
+    listener: (this: RadioButtonElement, ev: RadioButtonEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof RadioButtonEventMap>(
+    type: K,
+    listener: (this: RadioButtonElement, ev: RadioButtonEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {
