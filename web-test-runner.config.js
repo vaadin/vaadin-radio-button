@@ -51,7 +51,7 @@ if (process.env.TEST_ENV === 'sauce') {
     sauceLabsLauncher({
       browserName: 'iphone',
       platform: 'iPhone X Simulator',
-      version: '13.0'
+      version: '14.0'
     })
   ];
 }
