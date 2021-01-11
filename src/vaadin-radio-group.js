@@ -376,9 +376,7 @@ class RadioGroupElement extends ThemableMixin(DirMixin(PolymerElement)) {
    * @protected
    */
   _containsFocus() {
-    const root = this.getRootNode();
-    // Safari 9 needs polyfilled `_activeElement` to return correct node
-    const activeElement = root._activeElement !== undefined ? root._activeElement : root.activeElement;
+    const activeElement = this.getRootNode().activeElement;
     return this.contains(activeElement);
   }
 
