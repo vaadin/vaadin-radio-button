@@ -26,7 +26,7 @@ if (process.env.TEST_ENV === 'sauce') {
   const sauceLabsLauncher = createSauceLabsLauncher(
     {
       user: process.env.SAUCE_USERNAME,
-      key: process.env.SAUCE_ACCESS_KEY,
+      key: process.env.SAUCE_ACCESS_KEY
     },
     {
       name: 'vaadin-radio-button unit tests',
@@ -34,7 +34,7 @@ if (process.env.TEST_ENV === 'sauce') {
       recordScreenshots: false,
       recordVideo: false
     }
-  );;
+  );
 
   config.concurrency = 1;
   config.browsers = [
