@@ -59,6 +59,7 @@ class RadioButtonElement extends ElementMixin(ControlStateMixin(ThemableMixin(Ge
           display: inline-flex;
           align-items: baseline;
           outline: none;
+          width: 100%;
         }
 
         [part='radio'] {
