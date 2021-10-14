@@ -330,11 +330,19 @@
         expect(vaadinRadioButtonList[2].disabled).to.be.false;
       });
 
-      it('should not have the has-value attribute by default', () => {
+      it('should not have has-value attribute by default', () => {
         expect(vaadinRadioButtonGroup.hasAttribute('has-value')).to.be.false;
       });
 
-      it('should change the has-value attribute on value', () => {
+      it('should set has-value attribute on radio button click', () => {
+        vaadinRadioButtonList[0].click();
+        expect(vaadinRadioButtonGroup.hasAttribute('has-value')).to.be.true;
+
+        vaadinRadioButtonList[1].click();
+        expect(vaadinRadioButtonGroup.hasAttribute('has-value')).to.be.true;
+      });
+
+      it('should toggle has-value attribute on value change', () => {
         vaadinRadioButtonGroup.value = '2';
         expect(vaadinRadioButtonGroup.hasAttribute('has-value')).to.be.true;
 
@@ -378,6 +386,12 @@
         vaadinRadioButtonGroup.required = true;
         blur(vaadinRadioButtonGroup, false);
         expect(vaadinRadioButtonGroup.invalid).to.be.false;
+      });
+
+      it('should run validation only once on radio button click', () => {
+        const spy = sinon.spy(vaadinRadioButtonGroup, 'validate');
+        vaadinRadioButtonList[1].click();
+        expect(spy.calledOnce).to.be.true;
       });
 
       it('error should have appropriate aria attributes and id', () => {

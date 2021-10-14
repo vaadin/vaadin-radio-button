@@ -464,13 +464,13 @@ This program is available under Apache License Version 2.0, available at https:/
 
           if (!this._checkedButton || newV != this._checkedButton.value) {
             const newCheckedButton = this._radioButtons.filter(button => button.value == newV)[0];
+            this._selectButton(newCheckedButton);
+          }
 
-            if (newCheckedButton) {
-              this._selectButton(newCheckedButton);
-              this.setAttribute('has-value', '');
-            } else {
-              console.warn(`No <vaadin-radio-button> with value ${newV} found.`);
-            }
+          if (this._checkedButton) {
+            this.setAttribute('has-value', '');
+          } else {
+            console.warn(`No <vaadin-radio-button> with value ${newV} found.`);
           }
         }
 
