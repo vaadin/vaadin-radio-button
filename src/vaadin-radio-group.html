@@ -208,6 +208,7 @@ This program is available under Apache License Version 2.0, available at https:/
             value: {
               type: String,
               notify: true,
+              value: '',
               observer: '_valueChanged'
             }
           };
@@ -456,6 +457,9 @@ This program is available under Apache License Version 2.0, available at https:/
 
         /** @private */
         _valueChanged(newV, oldV) {
+          if (oldV === undefined) {
+            return;
+          }
           if (oldV && (newV === '' || newV === null || newV === undefined)) {
             this._changeSelectedButton(null);
             this.removeAttribute('has-value');

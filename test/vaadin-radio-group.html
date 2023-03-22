@@ -801,5 +801,49 @@
         expect(wrappedRadios[0].getBoundingClientRect().left).to.equal(firstLeft);
       });
     });
+    describe('initial validation', () => {
+      let group, validateSpy;
+    
+      function nextRender(element) {
+        return new Promise(resolve => {
+          Polymer.RenderStatus.afterNextRender(element, resolve);
+        });
+      }
+    
+      beforeEach(() => {
+        group = document.createElement('vaadin-radio-group');
+
+        const radio = document.createElement('vaadin-radio-button');
+        radio.value = '1';
+        group.appendChild(radio);
+
+        validateSpy = sinon.spy(group, 'validate');
+      });
+
+      afterEach(() => {
+        group.remove();
+      });
+
+      it('should not validate by default', async() => {
+        document.body.appendChild(group);
+        await nextRender();
+        expect(validateSpy.called).to.be.false;
+      });
+
+      it('should not validate when the field has an initial value', async() => {
+        group.value = '1';
+        document.body.appendChild(group);
+        await nextRender();
+        expect(validateSpy.called).to.be.false;
+      });
+
+      it('should not validate when the field has an initial value and invalid', async() => {
+        group.value = '1';
+        group.invalid = true;
+        document.body.appendChild(group);
+        await nextRender();
+        expect(validateSpy.called).to.be.false;
+      });
+    });
   </script>
 </body>
