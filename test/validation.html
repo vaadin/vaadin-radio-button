@@ -8,6 +8,7 @@
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../vaadin-radio-button.html">
   <link rel="import" href="../vaadin-radio-group.html">
+  <link rel="import" href="helpers.html">
 </head>
 
 <body>
@@ -47,6 +48,24 @@
       expect(validatedSpy.calledOnce).to.be.true;
       const event = validatedSpy.firstCall.args[0];
       expect(event.detail.valid).to.be.false;
+    });
+  });
+  describe('invalid cannot be set to false', () => {
+    let group;
+  
+    beforeEach(async() => {
+      group = fixture('radio-group');
+      group._shouldSetInvalid = (invalid) => invalid;
+      await nextRender();
+    });
+  
+    it('should set invalid only when it is true', async() => {
+      group.required = true;
+      group.validate();
+      expect(group.invalid).to.be.true;
+      group.value = '2';
+      group.validate();
+      expect(group.invalid).to.be.true;
     });
   });
   </script>
