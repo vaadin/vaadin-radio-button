@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>vaadin-radio-button validation tests</title>
+  <title>vaadin-radio-group validation tests</title>
   <script src="../../web-component-tester/browser.js"></script>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../test-fixture/test-fixture.html">
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <test-fixture id="radio-button">
+  <test-fixture id="radio-group">
     <template>
       <vaadin-radio-group>
         <vaadin-radio-button value='1'>Button <b>1</b></vaadin-radio-button>
@@ -25,7 +25,7 @@
     let group;
   
     beforeEach(() => {
-      group = fixture('radio-button');
+      group = fixture('radio-group');
     });
   
     it('should fire a validated event on validation success', () => {
