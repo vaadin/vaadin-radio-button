@@ -1,0 +1,53 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>vaadin-radio-button validation tests</title>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../test-fixture/test-fixture.html">
+  <link rel="import" href="../vaadin-radio-button.html">
+  <link rel="import" href="../vaadin-radio-group.html">
+</head>
+
+<body>
+  <test-fixture id="radio-button">
+    <template>
+      <vaadin-radio-group>
+        <vaadin-radio-button value='1'>Button <b>1</b></vaadin-radio-button>
+        <vaadin-radio-button value='2'>Button <b>2</b></vaadin-radio-button>
+        <vaadin-radio-button value='3'>Button <b>3</b></vaadin-radio-button>
+      </vaadin-radio-group>
+    </template>
+  </test-fixture>
+  <script>
+  describe('basic', () => {
+    let group;
+  
+    beforeEach(() => {
+      group = fixture('radio-button');
+    });
+  
+    it('should fire a validated event on validation success', () => {
+      const validatedSpy = sinon.spy();
+      group.addEventListener('validated', validatedSpy);
+      group.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.true;
+    });
+  
+    it('should fire a validated event on validation failure', () => {
+      const validatedSpy = sinon.spy();
+      group.addEventListener('validated', validatedSpy);
+      group.required = true;
+      group.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.false;
+    });
+  });
+  </script>
+</body>
