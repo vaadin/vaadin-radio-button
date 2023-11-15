@@ -233,6 +233,13 @@ This program is available under Apache License Version 2.0, available at https:/
           this._addEventListenerToNode(this, 'up', (e) => {
             this.removeAttribute('active');
 
+            // Prevent selecting if pointer has left the component
+            // https://github.com/vaadin/web-components/issues/442
+            const event = e.detail && e.detail.sourceEvent;
+            if (event && Array.from(event.composedPath()).indexOf(this) === -1) {
+              return;
+            }
+
             if (!this.checked && !this.disabled) {
               // If you change this block, please test manually that radio-button and
               // radio-group still works ok on iOS 12/13 and up as it may cause
