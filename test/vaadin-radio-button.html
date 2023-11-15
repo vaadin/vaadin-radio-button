@@ -133,7 +133,6 @@
         // Mimic the Polymer 'up' gesture event behavior
         vaadinRadioButton.dispatchEvent(new MouseEvent('mousedown'));
         const event = new MouseEvent('mouseup', {composed: true});
-        sinon.stub(event, 'composedPath').returns([document]);
         document.dispatchEvent(event);
         expect(vaadinRadioButton.checked).to.be.false;
       });
