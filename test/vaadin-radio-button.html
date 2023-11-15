@@ -129,6 +129,14 @@
         expect(vaadinRadioButton.checked).to.be.true;
       });
 
+      it('should not be checked after mouseup outside the element', () => {
+        // Mimic the Polymer 'up' gesture event behavior
+        vaadinRadioButton.dispatchEvent(new MouseEvent('mousedown'));
+        const event = new MouseEvent('mouseup', {composed: true});
+        document.dispatchEvent(event);
+        expect(vaadinRadioButton.checked).to.be.false;
+      });
+
       it('should have active attribute on space', () => {
         MockInteractions.keyDownOn(vaadinRadioButton, 32);
         expect(vaadinRadioButton.hasAttribute('active')).to.be.true;
