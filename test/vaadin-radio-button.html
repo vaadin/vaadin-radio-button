@@ -159,7 +159,14 @@
       it('should not be checked after touchend outside the element', () => {
         const xy = MockInteractions.middleOfNode(nativeRadio);
         MockInteractions.makeSoloTouchEvent('touchstart', xy, vaadinRadioButton);
-        MockInteractions.makeSoloTouchEvent('touchend', {clientX: 200, clientY: 200}, vaadinRadioButton);
+        MockInteractions.makeSoloTouchEvent('touchend', {x: 200, y: 200}, vaadinRadioButton);
+        expect(vaadinRadioButton.checked).to.be.false;
+      });
+
+      it('should not be checked after moving touch point within the element', () => {
+        const xy = MockInteractions.middleOfNode(nativeRadio);
+        MockInteractions.makeSoloTouchEvent('touchstart', xy, vaadinRadioButton);
+        MockInteractions.makeSoloTouchEvent('touchend', {x: xy.x + 5, y: xy.y + 5}, vaadinRadioButton);
         expect(vaadinRadioButton.checked).to.be.false;
       });
 
