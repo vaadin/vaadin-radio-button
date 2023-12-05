@@ -6,6 +6,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../polymer/lib/utils/gestures.html">
 <link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
 <link rel="import" href="../../vaadin-control-state-mixin/vaadin-control-state-mixin.html">
 <link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
@@ -233,11 +234,18 @@ This program is available under Apache License Version 2.0, available at https:/
           this._addEventListenerToNode(this, 'up', (e) => {
             this.removeAttribute('active');
 
-            // Prevent selecting if pointer has left the component
-            // https://github.com/vaadin/web-components/issues/442
             const event = e.detail && e.detail.sourceEvent;
-            if (event && Array.from(event.composedPath()).indexOf(this) === -1) {
-              return;
+            if (event) {
+              // According to spec, the `touchend` event target is the same element
+              // on which the touch point started, even if the touch point has since
+              // moved outside that element. So we need to detect the proper target.
+              const target = Polymer.Gestures.deepTargetFind(event.clientX, event.clientY);
+
+              // Prevent selecting if pointer has left the component
+              // https://github.com/vaadin/web-components/issues/442
+              if (target !== this && !this.shadowRoot.contains(target)) {
+                return;
+              }
             }
 
             if (!this.checked && !this.disabled) {

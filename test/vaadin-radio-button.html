@@ -129,11 +129,37 @@
         expect(vaadinRadioButton.checked).to.be.true;
       });
 
+      it('should be checked after mouseup inside the element', () => {
+        // Mimic the Polymer 'up' gesture event behavior
+        nativeRadio.dispatchEvent(new CustomEvent('mousedown', {bubbles: true, composed: true}));
+        const event = new CustomEvent('mouseup', {bubbles: true, composed: true});
+        const xy = MockInteractions.middleOfNode(nativeRadio);
+        event.clientX = xy.x;
+        event.clientY = xy.y;
+        nativeRadio.dispatchEvent(event);
+        expect(vaadinRadioButton.checked).to.be.true;
+      });
+
       it('should not be checked after mouseup outside the element', () => {
         // Mimic the Polymer 'up' gesture event behavior
-        vaadinRadioButton.dispatchEvent(new MouseEvent('mousedown'));
-        const event = new MouseEvent('mouseup', {composed: true});
+        nativeRadio.dispatchEvent(new CustomEvent('mousedown', {bubbles: true, composed: true}));
+        const event = new CustomEvent('mouseup', {bubbles: true, composed: true});
+        event.clientX = 200;
+        event.clientY = 200;
         document.dispatchEvent(event);
+        expect(vaadinRadioButton.checked).to.be.false;
+      });
+
+      it('should be checked after touchend inside the element', () => {
+        MockInteractions.touchstart(vaadinRadioButton);
+        MockInteractions.touchend(vaadinRadioButton);
+        expect(vaadinRadioButton.checked).to.be.true;
+      });
+
+      it('should not be checked after touchend outside the element', () => {
+        const xy = MockInteractions.middleOfNode(nativeRadio);
+        MockInteractions.makeSoloTouchEvent('touchstart', xy, vaadinRadioButton);
+        MockInteractions.makeSoloTouchEvent('touchend', {clientX: 200, clientY: 200}, vaadinRadioButton);
         expect(vaadinRadioButton.checked).to.be.false;
       });
 
