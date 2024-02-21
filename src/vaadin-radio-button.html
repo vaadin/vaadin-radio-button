@@ -248,7 +248,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
               // Prevent selecting if pointer has left the component
               // https://github.com/vaadin/web-components/issues/442
-              if (target !== this && !this.shadowRoot.contains(target)) {
+              if (!this.contains(target) && !this.shadowRoot.contains(target)) {
                 return;
               }
 
