@@ -44,7 +44,7 @@
 
   <test-fixture id="default">
     <template>
-      <vaadin-radio-button name="test-radio">Radio <b>Button</b></vaadin-radio-button>
+      <vaadin-radio-button name="test-radio">Radio <span>Button</span></vaadin-radio-button>
     </template>
   </test-fixture>
 
@@ -101,7 +101,7 @@
       it('should define radio button label using light DOM', () => {
         const children = label.firstElementChild.assignedNodes();
         expect(children[0].textContent).to.be.equal('Radio ');
-        expect(children[1].outerHTML).to.be.equal('<b>Button</b>');
+        expect(children[1].outerHTML).to.be.equal('<span>Button</span>');
       });
 
       it('should bind checked to the native radio and vice versa', () => {
@@ -129,7 +129,7 @@
         expect(vaadinRadioButton.checked).to.be.true;
       });
 
-      it('should be checked after mouseup inside the element', () => {
+      it('should be checked after mouseup inside the shadow DOM', () => {
         // Mimic the Polymer 'up' gesture event behavior
         nativeRadio.dispatchEvent(new CustomEvent('mousedown', {bubbles: true, composed: true}));
         const event = new CustomEvent('mouseup', {bubbles: true, composed: true});
@@ -137,6 +137,17 @@
         event.clientX = xy.x;
         event.clientY = xy.y;
         nativeRadio.dispatchEvent(event);
+        expect(vaadinRadioButton.checked).to.be.true;
+      });
+
+      it('should be checked after mouseup on the slotted content', () => {
+        const span = vaadinRadioButton.querySelector('span');
+        span.dispatchEvent(new CustomEvent('mousedown', {bubbles: true, composed: true}));
+        const event = new CustomEvent('mouseup', {bubbles: true, composed: true});
+        const xy = MockInteractions.middleOfNode(span);
+        event.clientX = xy.x;
+        event.clientY = xy.y;
+        span.dispatchEvent(event);
         expect(vaadinRadioButton.checked).to.be.true;
       });
 
@@ -150,9 +161,16 @@
         expect(vaadinRadioButton.checked).to.be.false;
       });
 
-      it('should be checked after touchend inside the element', () => {
+      it('should be checked after touchend on the element', () => {
         MockInteractions.touchstart(vaadinRadioButton);
         MockInteractions.touchend(vaadinRadioButton);
+        expect(vaadinRadioButton.checked).to.be.true;
+      });
+
+      it('should be checked after touchend on the slotted content', () => {
+        const span = vaadinRadioButton.querySelector('span');
+        MockInteractions.touchstart(span);
+        MockInteractions.touchend(span);
         expect(vaadinRadioButton.checked).to.be.true;
       });
 
